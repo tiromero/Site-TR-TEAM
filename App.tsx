@@ -9,6 +9,7 @@ import { MagnetizeCTA } from './components/MagnetizeCTA';
 import { AvatarGroup } from './components/ui/avatar-group';
 import { FloatingNav } from './components/ui/floating-navbar';
 import { TestimonialsColumn } from './components/ui/testimonials-columns-1';
+import { InteractiveHeroImage } from './components/ui/InteractiveHeroImage';
 import { 
   LayoutDashboard, 
   User, 
@@ -175,7 +176,7 @@ const App: React.FC = () => {
               </div>
               <h1 className="font-heading text-5xl md:text-7xl lg:text-9xl font-black mb-6 leading-tight">
                 TR <span className="text-gradient">TEAM</span><br />
-                <span className="text-zinc-400 text-3xl md:text-5xl">Elite Coaching</span>
+                <span className="text-zinc-400 text-3xl md:text-5xl tracking-tight uppercase">Consultoria Online</span>
               </h1>
               <p className="text-lg md:text-xl text-zinc-400 font-medium mb-10 max-w-xl leading-relaxed">
                 Transformando corpos e mentes através da ciência do treinamento. Treine de forma <span className="text-white">inteligente</span>, não apenas pesada.
@@ -186,12 +187,7 @@ const App: React.FC = () => {
               </div>
             </div>
             <div className="relative hidden lg:block">
-              <div className="absolute inset-0 bg-purple-600/20 blur-[100px] rounded-full" />
-              <img 
-                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800" 
-                alt="App Preview" 
-                className="relative z-10 w-full max-w-md mx-auto drop-shadow-2xl rounded-[3rem] border border-white/10"
-              />
+              <InteractiveHeroImage />
             </div>
           </div>
         </section>
