@@ -82,22 +82,22 @@ export const FAQS: FAQ[] = [
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    name: "Juliana Silva",
-    image: "https://picsum.photos/seed/juli/200/200",
-    text: "A consultoria tem sido incrível! Você dá todo o apoio e suporte necessário independente da hora do dia. Tenho conseguido muitos resultados e me sinto melhor em todos os aspectos.",
+    name: "Beatriz Oliveira",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "A consultoria tem sido incrível! O Tiromero dá todo o apoio e suporte necessário independente da hora. Perdi 8kg em 2 meses com saúde e disposição.",
     tag: "Emagrecimento"
   },
   {
-    name: "Carlos Mendes",
-    image: "https://picsum.photos/seed/carlos/200/200",
-    text: "Bom dia mestre! Tudo bem? Só compartilhando um resultado muito massa... iniciei com 132.8kg, agora estou com 120kg! Valeu demais!",
+    name: "Mateus Ferraz",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Mestre, os treinos estão em outro nível! Comecei com 132kg e hoje bati 118kg. A técnica que você ensina mudou minha forma de treinar. Pra cima!",
     tag: "Hipertrofia"
   },
   {
-    name: "Renata Costa",
-    image: "https://picsum.photos/seed/renata/200/200",
-    text: "O projeto tem dado super certo. Estou bem satisfeita com a consultoria e acesso dos guias e app. O trabalho realizado por ele tem dado super certo e está garantindo o alcance dos objetivos.",
-    tag: "Saúde"
+    name: "Carolina Santos",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Sempre tive preguiça de academia, mas o app e o acompanhamento próximo me mantiveram focada. Resultados visíveis em poucas semanas!",
+    tag: "Definição"
   }
 ];
 

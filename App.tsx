@@ -270,8 +270,8 @@ const App: React.FC = () => {
         <section id="resultados" className="py-24 px-6 lg:px-20 bg-zinc-950/50">
           <div className="max-w-6xl mx-auto text-center mb-16">
             <h2 className="font-heading text-4xl md:text-6xl font-black mb-8 uppercase leading-tight">
-              Evoluções Reais <br />
-              <span className="text-gradient">de Alunos Reais</span>
+              Feedbacks de Alunos <br />
+              <span className="text-gradient">com resultados reais</span>
             </h2>
             <div className="grid md:grid-cols-3 gap-8 text-left">
               {TESTIMONIALS.map((t, idx) => (
