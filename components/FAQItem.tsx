@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { FAQ } from '../types.ts';
+import { FAQ } from '../types';
 
 interface FAQItemProps {
   faq: FAQ;
