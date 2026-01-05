@@ -1,14 +1,12 @@
 
 import React from 'react';
-import { ConsultancyStep } from '../types';
+import { ConsultancyStep } from '../types.ts';
 
 interface DisplayCardProps {
   step: ConsultancyStep;
   className?: string;
 }
 
-// Fixed error: Type '{ key: number; step: ConsultancyStep; className: string; }' is not assignable to type 'DisplayCardProps'.
-// By using React.FC, we ensure the component is correctly typed to accept React-specific props like 'key'.
 const DisplayCard: React.FC<DisplayCardProps> = ({ step, className }) => {
   return (
     <div
@@ -33,17 +31,13 @@ const DisplayCard: React.FC<DisplayCardProps> = ({ step, className }) => {
       </div>
 
       <p className="text-zinc-600 text-[10px] font-medium uppercase tracking-widest">TR TEAM CONSULTORIA</p>
-      
-      {/* Overlay effect logic integrated into className for standard tailwind support */}
     </div>
   );
 }
 
 export default function HowItWorksCards({ steps }: { steps: ConsultancyStep[] }) {
-  // Mobile: Normal grid, Desktop: Stacking effect
   return (
     <div className="relative">
-      {/* Desktop Stacking View */}
       <div className="hidden lg:grid [grid-template-areas:'stack'] place-items-center opacity-100 animate-in fade-in-0 duration-1000 min-h-[500px]">
         {steps.map((step, index) => {
           const offsets = [
@@ -65,7 +59,6 @@ export default function HowItWorksCards({ steps }: { steps: ConsultancyStep[] })
         })}
       </div>
 
-      {/* Mobile/Tablet Grid View */}
       <div className="lg:hidden grid gap-16 md:gap-24 place-items-center py-10">
         {steps.map((step, index) => (
           <DisplayCard 
