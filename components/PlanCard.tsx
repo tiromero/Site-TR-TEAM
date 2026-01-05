@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Plan } from '../types.ts';
+import { Plan } from '../types';
 
 interface PlanCardProps {
   plan: Plan;

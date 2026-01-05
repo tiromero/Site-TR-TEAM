@@ -1,13 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { PLANS, FAQS, TESTIMONIALS, CONSULTANCY_STEPS } from './constants.tsx';
-import { PlanCard } from './components/PlanCard.tsx';
-import { FAQItem } from './components/FAQItem.tsx';
-import HowItWorksCards from './components/HowItWorksCards.tsx';
-import { MagnetizeCTA } from './components/MagnetizeCTA.tsx';
-import { AvatarGroup } from './components/ui/avatar-group.tsx';
-import { FloatingNav } from './components/ui/floating-navbar.tsx';
+import { PLANS, FAQS, TESTIMONIALS, CONSULTANCY_STEPS } from './constants';
+import { PlanCard } from './components/PlanCard';
+import { FAQItem } from './components/FAQItem';
+import HowItWorksCards from './components/HowItWorksCards';
+import { MagnetizeCTA } from './components/MagnetizeCTA';
+import { AvatarGroup } from './components/ui/avatar-group';
+import { FloatingNav } from './components/ui/floating-navbar';
 import { 
   LayoutDashboard, 
   User, 
