@@ -84,20 +84,56 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     name: "Beatriz Oliveira",
     image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200&h=200",
-    text: "A consultoria tem sido incrível! O Tiromero dá todo o apoio e suporte necessário independente da hora. Perdi 8kg em 2 meses com saúde e disposição.",
-    tag: "Emagrecimento"
+    text: "Mestre, bati minha meta de 2 meses em 5 semanas! O suporte no WhatsApp faz toda a diferença pra não errar na técnica.",
+    tag: "Resultado Rápido"
   },
   {
     name: "Mateus Ferraz",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200&h=200",
-    text: "Mestre, os treinos estão em outro nível! Comecei com 132kg e hoje bati 118kg. A técnica que você ensina mudou minha forma de treinar. Pra cima!",
+    text: "Treino insano hoje! Comecei com 132kg e hoje bati 118kg. A técnica que você ensina mudou minha forma de treinar. Pra cima!",
     tag: "Hipertrofia"
   },
   {
     name: "Carolina Santos",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200&h=200",
-    text: "Sempre tive preguiça de academia, mas o app e o acompanhamento próximo me mantiveram focada. Resultados visíveis em poucas semanas!",
+    text: "Sempre tive preguiça de academia, mas o app e o acompanhamento próximo me mantiveram focada. Resultados visíveis!",
     tag: "Definição"
+  },
+  {
+    name: "Lucas Almeida",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Finalmente aprendi a treinar de verdade. Menos peso e muito mais contração. Meus ombros nunca estiveram tão bons.",
+    tag: "Melhoria Técnica"
+  },
+  {
+    name: "Juliana Rocha",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "A dieta e o treino casaram certinho. Nunca imaginei que poderia comer o que gosto e ainda ver o abdômen aparecendo.",
+    tag: "Evolução Real"
+  },
+  {
+    name: "Ricardo Fonseca",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Mano, bati 120kg no agachamento hoje com a execução que você corrigiu no vídeo. Valeu cada centavo da consultoria!",
+    tag: "Aumento de Carga"
+  },
+  {
+    name: "Ana Silva",
+    image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Tiromero é o melhor! Atencioso demais e os feedbacks no app ajudam muito a manter a constância. Recomendo muito.",
+    tag: "Satisfação"
+  },
+  {
+    name: "Felipe Mendes",
+    image: "https://images.unsplash.com/photo-1504257432389-52343af06ae3?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Saí do sedentarismo direto pra uma rotina que eu realmente gosto de seguir. O segredo é o planejamento individualizado.",
+    tag: "Vida Saudável"
+  },
+  {
+    name: "Elena Martins",
+    image: "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&q=80&w=200&h=200",
+    text: "Minha postura melhorou 100% e as dores nas costas sumiram. Treinar com inteligência é outro nível.",
+    tag: "Performance"
   }
 ];
 

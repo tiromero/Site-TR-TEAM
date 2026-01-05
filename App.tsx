@@ -8,6 +8,7 @@ import HowItWorksCards from './components/HowItWorksCards';
 import { MagnetizeCTA } from './components/MagnetizeCTA';
 import { AvatarGroup } from './components/ui/avatar-group';
 import { FloatingNav } from './components/ui/floating-navbar';
+import { TestimonialsColumn } from './components/ui/testimonials-columns-1';
 import { 
   LayoutDashboard, 
   User, 
@@ -119,6 +120,10 @@ const App: React.FC = () => {
     { id: "faq", name: "FAQ", link: "#faq", icon: <HelpCircle className="h-4 w-4" /> },
     { id: "resultados", name: "Feedbacks", link: "#resultados", icon: <Star className="h-4 w-4" /> },
   ];
+
+  const firstColumn = TESTIMONIALS.slice(0, 3);
+  const secondColumn = TESTIMONIALS.slice(3, 6);
+  const thirdColumn = TESTIMONIALS.slice(6, 9);
 
   return (
     <div className="min-h-screen selection:bg-purple-500/30 bg-[#070707] overflow-x-hidden relative">
@@ -267,26 +272,36 @@ const App: React.FC = () => {
         </section>
 
         {/* Resultados */}
-        <section id="resultados" className="py-24 px-6 lg:px-20 bg-zinc-950/50">
-          <div className="max-w-6xl mx-auto text-center mb-16">
-            <h2 className="font-heading text-4xl md:text-6xl font-black mb-8 uppercase leading-tight">
-              Feedbacks de Alunos <br />
-              <span className="text-gradient">com resultados reais</span>
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8 text-left">
-              {TESTIMONIALS.map((t, idx) => (
-                <div key={idx} className="bg-white/5 p-8 rounded-[2rem] border border-white/5 hover:border-purple-500/30 transition-all duration-500 group">
-                  <div className="flex items-center gap-4 mb-6">
-                    <img src={t.image} alt={t.name} className="w-14 h-14 rounded-2xl border-2 border-purple-600 object-cover" />
-                    <div>
-                      <h4 className="font-black text-lg">{t.name}</h4>
-                      <span className="text-purple-500 font-bold text-[10px] uppercase tracking-wider">{t.tag}</span>
-                    </div>
-                  </div>
-                  <p className="text-zinc-400 leading-relaxed italic">"{t.text}"</p>
+        <section id="resultados" className="py-24 relative overflow-hidden bg-zinc-950/50">
+          <div className="container relative z-10 mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+              className="flex flex-col items-center justify-center max-w-[640px] mx-auto mb-16"
+            >
+              <div className="flex justify-center mb-6">
+                <div className="border border-purple-500/30 py-1.5 px-4 rounded-full bg-purple-500/10 text-purple-400 text-[10px] font-black uppercase tracking-[0.2em]">
+                  Prova Social
                 </div>
-              ))}
+              </div>
+
+              <h2 className="font-heading text-center text-4xl md:text-6xl font-black mb-6 leading-tight uppercase">
+                Feedbacks de Alunos <br />
+                <span className="text-gradient">com resultados reais</span>
+              </h2>
+              <p className="text-center text-zinc-400 font-medium">
+                Veja o que quem treina com a TR TEAM está alcançando todos os dias através de um acompanhamento direto e profissional.
+              </p>
+            </motion.div>
+
+            <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] max-h-[740px] overflow-hidden">
+              <TestimonialsColumn testimonials={firstColumn} duration={25} />
+              <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={35} />
+              <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={30} />
             </div>
+
             <div className="mt-20 flex flex-col items-center">
               <MagnetizeCTA text="COMEÇAR MINHA EVOLUÇÃO" onClick={() => navigateTo('planos')} />
               <SocialProof />
