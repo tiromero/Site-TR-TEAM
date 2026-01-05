@@ -170,7 +170,7 @@ const App: React.FC = () => {
               </div>
               <h1 className="font-heading text-5xl md:text-7xl lg:text-9xl font-black mb-6 leading-tight">
                 TR <span className="text-gradient">TEAM</span><br />
-                <span className="text-zinc-400 text-3xl md:text-5xl">Elite Coaching</span>
+                <span className="text-zinc-400 text-3xl md:text-5xl">Consultoria Online</span>
               </h1>
               <p className="text-lg md:text-xl text-zinc-400 font-medium mb-10 max-w-xl leading-relaxed">
                 Transformando corpos e mentes através da ciência do treinamento. Treine de forma <span className="text-white">inteligente</span>, não apenas pesada.

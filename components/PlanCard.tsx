@@ -7,6 +7,12 @@ interface PlanCardProps {
 }
 
 export const PlanCard: React.FC<PlanCardProps> = ({ plan }) => {
+  const handleWhatsAppRedirect = () => {
+    const phoneNumber = "5516993610513";
+    const message = encodeURIComponent(`Olá, gostaria de saber se há vaga disponivel para o ${plan.name}`);
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+  };
+
   return (
     <div className={`relative flex flex-col p-6 md:p-8 rounded-3xl md:rounded-[40px] transition-all duration-500 transform border ${
       plan.isFeatured 
@@ -51,7 +57,9 @@ export const PlanCard: React.FC<PlanCardProps> = ({ plan }) => {
         ))}
       </ul>
 
-      <button className={`w-full py-4 md:py-5 rounded-2xl md:rounded-[20px] font-black transition-all duration-300 uppercase tracking-widest text-[11px] md:text-sm active:scale-95 ${
+      <button 
+        onClick={handleWhatsAppRedirect}
+        className={`w-full py-4 md:py-5 rounded-2xl md:rounded-[20px] font-black transition-all duration-300 uppercase tracking-widest text-[11px] md:text-sm active:scale-95 ${
         plan.isFeatured
           ? 'bg-purple-600 hover:bg-purple-500 text-white shadow-xl shadow-purple-600/40'
           : 'bg-zinc-800 hover:bg-zinc-700 text-white'
