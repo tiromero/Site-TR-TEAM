@@ -64,17 +64,21 @@ export const InteractiveHeroImage = () => {
         }}
         className="relative z-10 w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-zinc-900 group cursor-pointer"
       >
-        {/* Usando uma imagem de alta qualidade que representa o ecossistema de consultoria mobile (como na foto enviada) */}
+        {/* Agora aponta para um arquivo que você pode subir no GitHub */}
         <img
-          src="https://images.unsplash.com/photo-1616748494672-c0e663a04285?auto=format&fit=crop&q=80&w=800"
+          src="/hero-consultoria.png"
           alt="Consultoria TR Team"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => {
+            // Fallback caso a imagem ainda não tenha sido enviada
+            (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1616748494672-c0e663a04285?auto=format&fit=crop&q=80&w=800";
+          }}
         />
         
         {/* Overlay para dar profundidade */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
         
-        {/* Elementos flutuantes em 3D (Simulando o estilo da imagem do usuário) */}
+        {/* Elementos flutuantes em 3D */}
         <motion.div 
           style={{ translateZ: "50px" }}
           className="absolute bottom-8 left-8 right-8 p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-2xl"
@@ -91,7 +95,7 @@ export const InteractiveHeroImage = () => {
         </motion.div>
       </motion.div>
       
-      {/* Decoração Extra (Pontos e brilhos) */}
+      {/* Decoração Extra */}
       <div className="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl" />
       <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl" />
     </div>

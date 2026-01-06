@@ -200,24 +200,27 @@ const App: React.FC = () => {
             <div className="relative group">
               <div className="absolute -inset-4 bg-purple-600/10 rounded-[40px] border border-purple-500/20 group-hover:bg-purple-600/20 transition-all duration-500" />
               <img 
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800" 
+                src="/tiromero-perfil.jpg" 
                 alt="Tiromero" 
-                className="relative rounded-[2rem] grayscale-[50%] group-hover:grayscale-0 transition-all duration-700 shadow-2xl w-full max-w-md mx-auto"
+                className="relative rounded-[2rem] grayscale-[50%] group-hover:grayscale-0 transition-all duration-700 shadow-2xl w-full max-w-md mx-auto aspect-square object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800";
+                }}
               />
             </div>
             <div>
               <h2 className="font-heading text-4xl md:text-6xl font-black mb-8 leading-none">
-                A Mente Por Trás <br />
-                <span className="text-gradient">do seu Resultado</span>
+                Prazer, <br />
+                <span className="text-gradient">sou "Tiromero"</span>
               </h2>
               <div className="space-y-6 text-zinc-400 text-lg leading-relaxed">
                 <p>
-                  Com mais de 7 anos de experiência, o "Tiromero" desenvolveu uma metodologia que une a fisiologia do exercício com a praticidade do dia a dia.
+                  Há mais ou menos 7 anos, decidi começar minha própria consultoria online para ajudar de forma efetiva meus alunos(as) em sua jornada com o treinamento físico. Minha metodologia combina técnica e ciência do treinamento físico para criar um plano inteligente e totalmente individualizado, garantindo a transformação segura de seus objetivos e progressões.
                 </p>
                 <div className="p-8 bg-white/5 border border-white/5 rounded-3xl relative overflow-hidden group">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-purple-600/5 -mr-16 -mt-16 rounded-full blur-3xl group-hover:bg-purple-600/10 transition-all" />
                   <p className="text-white font-bold italic text-xl relative z-10">
-                    "Não é sobre treinar mais, é sobre treinar melhor. Minha missão é te dar o caminho mais curto entre onde você está e o corpo que você quer."
+                    "Juntos, vamos otimizar seu tempo e seus esforços, treinando de forma inteligente e focada."
                   </p>
                 </div>
               </div>

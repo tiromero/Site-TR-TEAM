@@ -78,9 +78,12 @@ export const GlassSidebar: React.FC<SidebarProps> = ({ activeSection, onNavigate
             <div className="flex items-center gap-4 p-2">
                 <div className="relative">
                   <img 
-                    src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=150" 
+                    src="/tiromero-perfil.jpg" 
                     alt="Tiromero" 
                     className="w-11 h-11 rounded-xl border border-white/10 object-cover" 
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=150";
+                    }}
                   />
                   <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-zinc-950 rounded-full" />
                 </div>
