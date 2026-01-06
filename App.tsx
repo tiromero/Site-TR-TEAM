@@ -190,7 +190,6 @@ const App: React.FC = () => {
               <InteractiveInstaPost 
                 postUrl="https://www.instagram.com/p/DSvVi9llRli/" 
                 maxWidth="380px"
-                floatLabel="Consultoria Online"
               />
             </div>
           </div>
@@ -205,8 +204,6 @@ const App: React.FC = () => {
               <InteractiveInstaPost 
                 postUrl="https://www.instagram.com/p/B5qCaWahW7y/" 
                 maxWidth="420px"
-                label="Conheça minha jornada"
-                floatLabel="Minha Metodologia"
               />
             </div>
             <div className="order-1 lg:order-2">
