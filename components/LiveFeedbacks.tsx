@@ -11,8 +11,8 @@ interface Feedback {
   photo?: string;
 }
 
-// COLE AQUI A URL DO SEU APPS SCRIPT QUANDO ESTIVER PRONTA
-const API_URL = ""; 
+// ✅ URL da sua API do Google Sheets configurada
+const API_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLglVBpvyxHXMWm6ekh6Rq_fMQxWjMBYGlEbyCvIhBbqqyawtVjp1_0W6p0zJTXKmBeNm-wbkzDXV-2N6WDzJ-DtHedrTm2NMMjHPuDhD-qFe1u13EGtw-GHRUzLucGxc1KHYpES4kiCGj_WTRsD9q05dCgDUaTTwCUSUeiNHH8gi-MXr5DQskiqLH53bol8TBltB73tvvm3s-FZ9D3Ch65aM-T9msdg6eQrAy7pjt5cthh0P5cAMKTtOCmTT5Cg4qcMu89J66jD-vxiUlRiyamzzwJC9vAz3dqYctcr&lib=M4MxsoMYlmaNoauxz5nM5R7BBTg3DmODe"; 
 
 const DEMO_FEEDBACKS: Feedback[] = [
   { 
@@ -39,17 +39,21 @@ export const LiveFeedbacks = () => {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>(DEMO_FEEDBACKS);
 
   const fetchFeedbacks = async () => {
-    if (!API_URL) return;
+    if (!API_URL || API_URL.trim() === "") return;
     
     try {
       const response = await fetch(API_URL);
       const data = await response.json();
-      if (Array.isArray(data)) {
-        // Formata os dados vindos da planilha para incluir a foto dinâmica
+      
+      if (Array.isArray(data) && data.length > 0) {
         const formattedData = data.map(item => ({
-          ...item,
-          photo: `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=7c3aed&color=fff&bold=true&size=128`
+          name: item.name || "Aluno TR TEAM",
+          text: item.text || "Sem comentário disponível.",
+          tag: item.tag || "Resultado",
+          photo: `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name || "A")}&background=7c3aed&color=fff&bold=true&size=128`
         }));
+        
+        // Mostra os mais recentes primeiro
         setFeedbacks(formattedData.reverse().slice(0, 6));
       }
     } catch (error) {
@@ -59,6 +63,7 @@ export const LiveFeedbacks = () => {
 
   useEffect(() => {
     fetchFeedbacks();
+    // Verifica novos feedbacks a cada 2 minutos
     const interval = setInterval(fetchFeedbacks, 120000); 
     return () => clearInterval(interval);
   }, []);
@@ -74,7 +79,7 @@ export const LiveFeedbacks = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="group relative p-8 rounded-[2.5rem] bg-zinc-900/30 border border-white/5 backdrop-blur-md hover:border-purple-500/40 transition-all duration-500 flex flex-col justify-between"
+              className="group relative p-8 rounded-[2.5rem] bg-zinc-900/30 border border-white/5 backdrop-blur-md hover:border-purple-500/40 transition-all duration-500 flex flex-col justify-between min-h-[320px]"
             >
               <div>
                 <div className="flex items-center justify-between mb-6">
@@ -93,20 +98,20 @@ export const LiveFeedbacks = () => {
                 </p>
               </div>
 
-              <div className="flex items-center justify-between border-t border-white/5 pt-6">
+              <div className="flex items-center justify-between border-t border-white/5 pt-6 mt-auto">
                 <div className="flex items-center gap-4">
                   <div className="relative">
                     <img 
                       src={item.photo} 
                       alt={item.name}
-                      className="w-12 h-12 rounded-full border-2 border-purple-600/30 object-cover"
+                      className="w-12 h-12 rounded-full border-2 border-purple-600/30 bg-zinc-800"
                     />
                     <div className="absolute -bottom-1 -right-1 bg-zinc-900 rounded-full p-0.5">
                       <CheckCircle2 className="w-4 h-4 text-emerald-500 fill-emerald-500/10" />
                     </div>
                   </div>
-                  <div>
-                    <h4 className="text-white font-black text-sm tracking-tight flex items-center gap-1.5">
+                  <div className="overflow-hidden">
+                    <h4 className="text-white font-black text-sm tracking-tight flex items-center gap-1.5 truncate max-w-[150px]">
                       {item.name}
                     </h4>
                     <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-[0.2em] flex items-center gap-1">
