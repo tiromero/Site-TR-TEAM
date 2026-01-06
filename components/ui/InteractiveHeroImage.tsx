@@ -2,33 +2,30 @@
 "use client";
 import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { Instagram, ExternalLink } from "lucide-react";
 
 export const InteractiveHeroImage = () => {
   const ref = useRef<HTMLDivElement>(null);
 
+  // Valores para o efeito de inclinação (Tilt)
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
   const mouseXSpring = useSpring(x);
   const mouseYSpring = useSpring(y);
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
-
     const rect = ref.current.getBoundingClientRect();
-
     const width = rect.width;
     const height = rect.height;
-
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-
     const xPct = mouseX / width - 0.5;
     const yPct = mouseY / height - 0.5;
-
     x.set(xPct);
     y.set(yPct);
   };
@@ -39,9 +36,9 @@ export const InteractiveHeroImage = () => {
   };
 
   return (
-    <div className="relative w-full max-w-md mx-auto perspective-[1000px]">
-      {/* Background Glow */}
-      <div className="absolute inset-0 bg-purple-600/30 blur-[120px] rounded-full animate-pulse" />
+    <div className="relative w-full max-w-[420px] mx-auto perspective-[1000px] group/container">
+      {/* Brilho de fundo (Aura) */}
+      <div className="absolute inset-0 bg-purple-600/20 blur-[100px] rounded-full animate-pulse" />
       
       <motion.div
         ref={ref}
@@ -53,51 +50,59 @@ export const InteractiveHeroImage = () => {
           transformStyle: "preserve-3d",
         }}
         animate={{
-          y: [0, -15, 0],
+          y: [0, -10, 0],
         }}
         transition={{
           y: {
-            duration: 4,
+            duration: 5,
             repeat: Infinity,
             ease: "easeInOut",
           },
         }}
-        className="relative z-10 w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-zinc-900 group cursor-pointer"
+        className="relative z-10 w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-[#121212] group"
       >
-        {/* Agora aponta para um arquivo que você pode subir no GitHub */}
-        <img
-          src="/hero-consultoria.png"
-          alt="Consultoria TR Team"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          onError={(e) => {
-            // Fallback caso a imagem ainda não tenha sido enviada
-            (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1616748494672-c0e663a04285?auto=format&fit=crop&q=80&w=800";
-          }}
-        />
-        
-        {/* Overlay para dar profundidade */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-        
-        {/* Elementos flutuantes em 3D */}
-        <motion.div 
-          style={{ translateZ: "50px" }}
-          className="absolute bottom-8 left-8 right-8 p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-2xl"
+        {/* Camada do Post do Instagram (Real) */}
+        <div className="absolute inset-0 z-0">
+          <iframe
+            src="https://www.instagram.com/p/DSvVi9llRli/embed"
+            className="w-full h-full border-none"
+            scrolling="no"
+            allowTransparency={true}
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          ></iframe>
+        </div>
+
+        {/* Overlay de Interação (Aparece no hover para guiar o usuário) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10">
+           <div className="absolute bottom-6 left-6 flex items-center gap-2">
+              <Instagram className="w-5 h-5 text-purple-500" />
+              <span className="text-white text-[10px] font-black uppercase tracking-widest">Navegue no Carrossel</span>
+           </div>
+        </div>
+
+        {/* Botão para abrir o post original */}
+        <a 
+          href="https://www.instagram.com/p/DSvVi9llRli/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="absolute top-4 right-4 z-20 p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 text-white hover:bg-purple-600 transition-all opacity-0 group-hover:opacity-100"
+          title="Ver no Instagram"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-               <span className="text-[10px] font-black">TR</span>
-            </div>
-            <div>
-              <p className="text-white font-black text-xs uppercase tracking-widest leading-none">Protocolo Ativo</p>
-              <p className="text-zinc-400 text-[10px] font-bold mt-1">Sincronizado com App</p>
-            </div>
-          </div>
+          <ExternalLink className="w-4 h-4" />
+        </a>
+
+        {/* Elemento 3D Decorativo (Flutuando sobre o post) */}
+        <motion.div 
+          style={{ translateZ: "60px" }}
+          className="absolute -bottom-4 -right-4 p-4 bg-purple-600 rounded-2xl shadow-2xl z-20 hidden lg:block"
+        >
+          <p className="text-white font-black text-[10px] uppercase tracking-tighter">Resultados Comprovados</p>
         </motion.div>
       </motion.div>
       
-      {/* Decoração Extra */}
-      <div className="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl" />
-      <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl" />
+      {/* Decorações ao redor */}
+      <div className="absolute -top-12 -right-12 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl" />
+      <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-indigo-500/5 rounded-full blur-3xl" />
     </div>
   );
 };
