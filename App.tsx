@@ -239,10 +239,17 @@ const App: React.FC = () => {
               <h2 className="font-heading text-4xl md:text-6xl font-black mb-4">Escolha sua Jornada</h2>
               <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">Transformação garantida ou seu treino de volta</p>
             </div>
-            <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-8">
+            <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
               {PLANS.map((plan) => (
                 <PlanCard key={plan.id} plan={plan} />
               ))}
+            </div>
+            
+            {/* Disclaimer InfinityPay unificado e discreto */}
+            <div className="max-w-2xl mx-auto text-center px-6">
+              <p className="text-[10px] md:text-xs text-zinc-500 font-bold uppercase tracking-widest leading-relaxed opacity-60">
+                * Atenção: Os valores totais exibidos correspondem ao pagamento à vista. Parcelamentos via cartão de crédito através da plataforma InfinityPay estão sujeitos a taxas adicionais e juros conforme o número de parcelas selecionado pelo usuário.
+              </p>
             </div>
           </div>
         </section>

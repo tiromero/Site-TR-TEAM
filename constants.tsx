@@ -50,7 +50,7 @@ export const PLANS: Plan[] = [
     name: 'PACOTE ANUAL',
     price: 'R$185',
     originalPrice: 'R$2220',
-    description: 'Este é o mais completo e com maior desconto para um trabalho totalmente específico e otimizado a longo prazo.',
+    description: 'Confiança e Economia. O mais completo e com maior desconto para um trabalho otimizado a longo prazo.',
     features: [
       'BENEFÍCIOS DE TODOS OS PACOTES',
       'O MELHOR EM CUSTO BENEFÍCIO',
