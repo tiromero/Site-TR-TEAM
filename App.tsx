@@ -167,14 +167,14 @@ const App: React.FC = () => {
       <div className="relative z-10 w-full">
         
         {/* Hero Section */}
-        <section id="inicio" className="relative pt-24 pb-16 lg:pt-48 lg:pb-32 px-6 lg:px-20 overflow-hidden">
-          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <section id="inicio" className="relative pt-20 pb-16 lg:pt-40 lg:pb-32 px-6 lg:px-20 overflow-hidden">
+          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className={`transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-600/10 border border-purple-500/20 text-purple-400 text-[10px] font-black uppercase tracking-widest mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-600/10 border border-purple-500/20 text-purple-400 text-[10px] font-black uppercase tracking-widest mb-4">
                 <span className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-ping" />
                 Restam apenas algumas vagas
               </div>
-              <h1 className="font-heading text-5xl md:text-7xl lg:text-9xl font-black mb-6 leading-tight">
+              <h1 className="font-heading text-5xl md:text-7xl lg:text-9xl font-black mb-6 leading-[0.85] lg:leading-[0.8] tracking-tighter">
                 TR <span className="text-gradient">TEAM</span><br />
                 <span className="text-zinc-400 text-3xl md:text-5xl tracking-tight uppercase">Consultoria Online</span>
               </h1>

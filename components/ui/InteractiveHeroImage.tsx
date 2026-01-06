@@ -36,7 +36,7 @@ export const InteractiveHeroImage = () => {
   };
 
   return (
-    <div className="relative w-full max-w-[420px] mx-auto perspective-[1000px] group/container">
+    <div className="relative w-full max-w-[380px] mx-auto perspective-[1000px] group/container">
       {/* Brilho de fundo (Aura) */}
       <div className="absolute inset-0 bg-purple-600/20 blur-[100px] rounded-full animate-pulse" />
       
@@ -62,7 +62,7 @@ export const InteractiveHeroImage = () => {
         className="relative z-10 w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-[#121212] group"
       >
         {/* Camada do Post do Instagram (Real) */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 scale-[1.02]">
           <iframe
             src="https://www.instagram.com/p/DSvVi9llRli/embed"
             className="w-full h-full border-none"
