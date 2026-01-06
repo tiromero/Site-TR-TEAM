@@ -9,7 +9,7 @@ import { MagnetizeCTA } from './components/MagnetizeCTA';
 import { AvatarGroup } from './components/ui/avatar-group';
 import { FloatingNav } from './components/ui/floating-navbar';
 import { TestimonialsColumn } from './components/ui/testimonials-columns-1';
-import { InteractiveHeroImage } from './components/ui/InteractiveHeroImage';
+import { InteractiveInstaPost } from './components/ui/InteractiveInstaPost';
 import { 
   LayoutDashboard, 
   User, 
@@ -174,7 +174,7 @@ const App: React.FC = () => {
                 <span className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-ping" />
                 Restam apenas algumas vagas
               </div>
-              <h1 className="font-heading text-5xl md:text-7xl lg:text-9xl font-black mb-6 leading-[0.85] lg:leading-[0.8] tracking-tighter">
+              <h1 className="font-heading text-5xl md:text-7xl lg:text-9xl font-black mb-6 leading-[0.85] lg:leading-[0.8] tracking-tighter text-white">
                 TR <span className="text-gradient">TEAM</span><br />
                 <span className="text-zinc-400 text-3xl md:text-5xl tracking-tight uppercase">Consultoria Online</span>
               </h1>
@@ -187,7 +187,11 @@ const App: React.FC = () => {
               </div>
             </div>
             <div className="relative hidden lg:block">
-              <InteractiveHeroImage />
+              <InteractiveInstaPost 
+                postUrl="https://www.instagram.com/p/DSvVi9llRli/" 
+                maxWidth="380px"
+                floatLabel="Consultoria Online"
+              />
             </div>
           </div>
         </section>
@@ -197,18 +201,15 @@ const App: React.FC = () => {
         {/* Sobre Seção */}
         <section id="sobre" className="py-24 px-6 lg:px-20">
           <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-            <div className="relative group">
-              <div className="absolute -inset-4 bg-purple-600/10 rounded-[40px] border border-purple-500/20 group-hover:bg-purple-600/20 transition-all duration-500" />
-              <img 
-                src="/tiromero-perfil.jpg" 
-                alt="Tiromero" 
-                className="relative rounded-[2rem] grayscale-[50%] group-hover:grayscale-0 transition-all duration-700 shadow-2xl w-full max-w-md mx-auto aspect-square object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800";
-                }}
+            <div className="relative order-2 lg:order-1">
+              <InteractiveInstaPost 
+                postUrl="https://www.instagram.com/p/B5qCaWahW7y/" 
+                maxWidth="420px"
+                label="Conheça minha jornada"
+                floatLabel="Minha Metodologia"
               />
             </div>
-            <div>
+            <div className="order-1 lg:order-2">
               <h2 className="font-heading text-4xl md:text-6xl font-black mb-8 leading-none">
                 Prazer, <br />
                 <span className="text-gradient">sou "Tiromero"</span>
