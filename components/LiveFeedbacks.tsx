@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Star, CheckCircle2 } from "lucide-react";
 
@@ -24,7 +24,7 @@ const DEMO_FEEDBACKS: Feedback[] = [
 ];
 
 const FeedbackCard: React.FC<{ item: Feedback }> = ({ item }) => (
-  <div className="p-8 rounded-[2.5rem] bg-zinc-900/40 border border-white/5 backdrop-blur-md shadow-xl flex flex-col justify-between min-h-[280px] w-full max-w-sm">
+  <div className="p-8 rounded-[2.5rem] bg-zinc-900/40 border border-white/5 backdrop-blur-md shadow-xl flex flex-col justify-between min-h-[280px] w-full max-w-sm mx-auto">
     <div>
       <div className="flex items-center justify-between mb-6">
         <div className="flex gap-1">
@@ -56,14 +56,15 @@ const FeedbackCard: React.FC<{ item: Feedback }> = ({ item }) => (
 );
 
 const ScrollColumn = ({ testimonials, duration = 20, className = "" }: { testimonials: Feedback[], duration?: number, className?: string }) => {
-  // Triplicamos a lista para garantir que a rolagem nunca mostre espaços vazios, 
-  // mesmo que a lista de depoimentos seja pequena.
-  const tripledList = [...testimonials, ...testimonials, ...testimonials];
+  // Triplicamos para garantir um loop infinito perfeito sem saltos visuais
+  const displayList = useMemo(() => [...testimonials, ...testimonials, ...testimonials], [testimonials]);
   
+  if (testimonials.length === 0) return null;
+
   return (
     <div className={className}>
       <motion.div
-        animate={{ translateY: "-33.33%" }}
+        animate={{ translateY: "-33.333%" }}
         transition={{
           duration,
           repeat: Infinity,
@@ -71,7 +72,7 @@ const ScrollColumn = ({ testimonials, duration = 20, className = "" }: { testimo
         }}
         className="flex flex-col gap-6 pb-6"
       >
-        {tripledList.map((item, idx) => (
+        {displayList.map((item, idx) => (
           <FeedbackCard key={`${item.id}-${idx}`} item={item} />
         ))}
       </motion.div>
@@ -82,20 +83,28 @@ const ScrollColumn = ({ testimonials, duration = 20, className = "" }: { testimo
 export const LiveFeedbacks = () => {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>(DEMO_FEEDBACKS);
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const fetchFeedbacks = async () => {
-    if (!API_URL) return;
     try {
       const response = await fetch(API_URL);
       const data = await response.json();
       
-      if (Array.isArray(data) && data.length > 0) {
-        const formatted = data.map((item, index) => ({
-          // Procura por múltiplas variações de nomes de colunas para ser resiliente
+      const rawList = Array.isArray(data) ? data : (data.data || []);
+
+      if (rawList.length > 0) {
+        const formatted = rawList.map((item: any, index: number) => ({
           id: item.id || `fb-${index}`,
           name: item.name || item.nome || item.Nome || "Aluno TR TEAM",
-          text: item.text || item.feedback || item.feedbackText || item.comentario || item.comentário || "Excelente acompanhamento!",
-          tag: item.tag || item.categoria || item.status || "Resultado",
+          text: item.text || item.feedback || item.comentario || item.comentário || "Excelente trabalho!",
+          tag: item.tag || item.categoria || item.resultado || "Resultado",
           photo: item.photo || item.foto || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name || item.nome || "A")}&background=7c3aed&color=fff&bold=true`
         }));
         setFeedbacks(formatted);
@@ -109,29 +118,31 @@ export const LiveFeedbacks = () => {
 
   useEffect(() => {
     fetchFeedbacks();
-    const interval = setInterval(fetchFeedbacks, 120000); // Atualiza a cada 2 minutos
+    const interval = setInterval(fetchFeedbacks, 60000); // Atualiza a cada 1 minuto
     return () => clearInterval(interval);
   }, []);
 
-  // Divide os feedbacks de forma equilibrada em 3 colunas
-  const col1 = feedbacks.filter((_, i) => i % 3 === 0);
-  const col2 = feedbacks.filter((_, i) => i % 3 === 1);
-  const col3 = feedbacks.filter((_, i) => i % 3 === 2);
+  // No desktop, dividimos em colunas. No mobile, usamos a lista cheia em uma coluna só.
+  const col1 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 0), [feedbacks]);
+  const col2 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 1), [feedbacks]);
+  const col3 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 2), [feedbacks]);
 
   return (
-    <div className="relative w-full overflow-hidden max-h-[750px] [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
+    <div className="relative w-full overflow-hidden max-h-[800px] [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
       <div className="flex justify-center gap-6 py-4">
-        {/* Coluna 1: Todos os navegadores */}
-        <ScrollColumn testimonials={col1.length ? col1 : feedbacks} duration={25} />
-        
-        {/* Coluna 2: Visível em Tablets e Desktop */}
-        <ScrollColumn testimonials={col2.length ? col2 : feedbacks} duration={35} className="hidden md:flex" />
-        
-        {/* Coluna 3: Visível apenas em Desktop */}
-        <ScrollColumn testimonials={col3.length ? col3 : feedbacks} duration={30} className="hidden lg:flex" />
+        {isMobile ? (
+          // Mobile: Uma única coluna com TODOS os feedbacks
+          <ScrollColumn testimonials={feedbacks} duration={feedbacks.length * 5} />
+        ) : (
+          // Desktop: 3 colunas dividindo os feedbacks
+          <>
+            <ScrollColumn testimonials={col1.length ? col1 : feedbacks} duration={30} />
+            <ScrollColumn testimonials={col2.length ? col2 : feedbacks} duration={45} className="hidden md:flex" />
+            <ScrollColumn testimonials={col3.length ? col3 : feedbacks} duration={35} className="hidden lg:flex" />
+          </>
+        )}
       </div>
       
-      {/* Caso a lista esteja carregando ou vazia, garantimos que os placeholders não sumam */}
       {feedbacks.length === 0 && !loading && (
         <div className="text-center py-20 text-zinc-500 font-bold uppercase tracking-widest text-xs">
           Aguardando novos depoimentos...
