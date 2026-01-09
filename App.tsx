@@ -168,9 +168,9 @@ const App: React.FC = () => {
                 <span className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-ping" />
                 Restam apenas algumas vagas
               </div>
-              <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[0.85] md:leading-[0.8] lg:leading-[0.75] tracking-[-0.05em] text-white">
+              <h1 className="font-heading text-6xl md:text-7xl lg:text-8xl font-black mb-4 leading-[0.75] md:leading-[0.8] lg:leading-[0.75] tracking-[-0.08em] text-white">
                 TR <span className="text-gradient">TEAM</span><br />
-                <span className="text-zinc-400 text-3xl md:text-5xl lg:text-6xl tracking-[-0.02em] uppercase">Consultoria Online</span>
+                <span className="text-zinc-400 text-2xl md:text-4xl lg:text-5xl tracking-[-0.05em] uppercase block mt-1">Consultoria Online</span>
               </h1>
               <p className="text-lg md:text-xl text-zinc-400 font-medium mb-10 max-w-xl leading-relaxed">
                 Transformando corpos e mentes através da ciência do treinamento. Treine de forma <span className="text-white">inteligente</span>, não apenas pesada.
