@@ -56,7 +56,6 @@ const FeedbackCard: React.FC<{ item: Feedback }> = ({ item }) => (
 );
 
 const ScrollColumn = ({ testimonials, duration = 20, className = "" }: { testimonials: Feedback[], duration?: number, className?: string }) => {
-  // Triplicamos para garantir um loop infinito perfeito sem saltos visuais
   const displayList = useMemo(() => [...testimonials, ...testimonials, ...testimonials], [testimonials]);
   
   if (testimonials.length === 0) return null;
@@ -96,7 +95,6 @@ export const LiveFeedbacks = () => {
     try {
       const response = await fetch(API_URL);
       const data = await response.json();
-      
       const rawList = Array.isArray(data) ? data : (data.data || []);
 
       if (rawList.length > 0) {
@@ -118,27 +116,42 @@ export const LiveFeedbacks = () => {
 
   useEffect(() => {
     fetchFeedbacks();
-    const interval = setInterval(fetchFeedbacks, 60000); // Atualiza a cada 1 minuto
+    const interval = setInterval(fetchFeedbacks, 120000); 
     return () => clearInterval(interval);
   }, []);
 
-  // No desktop, dividimos em colunas. No mobile, usamos a lista cheia em uma coluna só.
   const col1 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 0), [feedbacks]);
   const col2 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 1), [feedbacks]);
   const col3 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 2), [feedbacks]);
+
+  // Multiplicador de suavidade: aprox. 12 segundos por item.
+  // Se houver 10 itens, a coluna levará 120 segundos para rodar o ciclo completo.
+  const SECONDS_PER_ITEM = 12;
 
   return (
     <div className="relative w-full overflow-hidden max-h-[800px] [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
       <div className="flex justify-center gap-6 py-4">
         {isMobile ? (
-          // Mobile: Uma única coluna com TODOS os feedbacks
-          <ScrollColumn testimonials={feedbacks} duration={feedbacks.length * 5} />
+          <ScrollColumn 
+            testimonials={feedbacks} 
+            duration={Math.max(feedbacks.length * SECONDS_PER_ITEM, 20)} 
+          />
         ) : (
-          // Desktop: 3 colunas dividindo os feedbacks
           <>
-            <ScrollColumn testimonials={col1.length ? col1 : feedbacks} duration={30} />
-            <ScrollColumn testimonials={col2.length ? col2 : feedbacks} duration={45} className="hidden md:flex" />
-            <ScrollColumn testimonials={col3.length ? col3 : feedbacks} duration={35} className="hidden lg:flex" />
+            <ScrollColumn 
+              testimonials={col1.length ? col1 : feedbacks} 
+              duration={Math.max(col1.length * SECONDS_PER_ITEM, 30)} 
+            />
+            <ScrollColumn 
+              testimonials={col2.length ? col2 : feedbacks} 
+              duration={Math.max(col2.length * (SECONDS_PER_ITEM + 4), 40)} 
+              className="hidden md:flex" 
+            />
+            <ScrollColumn 
+              testimonials={col3.length ? col3 : feedbacks} 
+              duration={Math.max(col3.length * (SECONDS_PER_ITEM + 2), 35)} 
+              className="hidden lg:flex" 
+            />
           </>
         )}
       </div>
