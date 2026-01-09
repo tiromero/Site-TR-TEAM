@@ -24,7 +24,7 @@ const DEMO_FEEDBACKS: Feedback[] = [
 ];
 
 const FeedbackCard: React.FC<{ item: Feedback }> = ({ item }) => (
-  <div className="p-8 rounded-[2.5rem] bg-zinc-900/40 border border-white/5 backdrop-blur-md shadow-xl flex flex-col justify-between min-h-[280px] w-full max-w-sm mx-auto">
+  <div className="p-8 rounded-[2.5rem] bg-zinc-900/40 border border-white/5 backdrop-blur-md shadow-xl flex flex-col justify-between min-h-[280px] w-full max-w-sm mx-auto transition-all duration-500 hover:bg-zinc-900/60 hover:border-purple-500/30 group">
     <div>
       <div className="flex items-center justify-between mb-6">
         <div className="flex gap-1">
@@ -32,7 +32,7 @@ const FeedbackCard: React.FC<{ item: Feedback }> = ({ item }) => (
             <Star key={i} className="w-3.5 h-3.5 fill-purple-500 text-purple-500" />
           ))}
         </div>
-        <div className="bg-purple-500/10 text-purple-400 text-[9px] font-black px-2 py-1 rounded-full uppercase tracking-widest border border-purple-500/20">
+        <div className="bg-purple-500/10 text-purple-400 text-[9px] font-black px-2 py-1 rounded-full uppercase tracking-widest border border-purple-500/20 group-hover:bg-purple-500/20 transition-colors">
           {item.tag}
         </div>
       </div>
@@ -42,7 +42,7 @@ const FeedbackCard: React.FC<{ item: Feedback }> = ({ item }) => (
     </div>
     <div className="flex items-center gap-4 border-t border-white/5 pt-6">
       <div className="relative">
-        <img src={item.photo} alt={item.name} className="w-12 h-12 rounded-full border-2 border-purple-600/30" />
+        <img src={item.photo} alt={item.name} className="w-12 h-12 rounded-full border-2 border-purple-600/30 object-cover" />
         <div className="absolute -bottom-1 -right-1 bg-zinc-900 rounded-full p-0.5">
           <CheckCircle2 className="w-4 h-4 text-emerald-500 fill-emerald-500/10" />
         </div>
@@ -116,7 +116,7 @@ export const LiveFeedbacks = () => {
 
   useEffect(() => {
     fetchFeedbacks();
-    const interval = setInterval(fetchFeedbacks, 120000); 
+    const interval = setInterval(fetchFeedbacks, 300000); // Sincroniza a cada 5 minutos agora
     return () => clearInterval(interval);
   }, []);
 
@@ -124,32 +124,37 @@ export const LiveFeedbacks = () => {
   const col2 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 1), [feedbacks]);
   const col3 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 2), [feedbacks]);
 
-  // Multiplicador de suavidade: aprox. 12 segundos por item.
-  // Se houver 10 itens, a coluna levará 120 segundos para rodar o ciclo completo.
-  const SECONDS_PER_ITEM = 12;
+  /** 
+   * VELOCIDADE ZEN:
+   * Aumentada a duração para permitir leitura completa sem esforço.
+   * Mobile: 40 segundos por card.
+   * Desktop: 30 segundos por card.
+   */
+  const MOBILE_SECONDS_PER_ITEM = 40; 
+  const DESKTOP_SECONDS_PER_ITEM = 30;
 
   return (
-    <div className="relative w-full overflow-hidden max-h-[800px] [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
+    <div className="relative w-full overflow-hidden max-h-[850px] [mask-image:linear-gradient(to_bottom,transparent,black_5%,black_95%,transparent)]">
       <div className="flex justify-center gap-6 py-4">
         {isMobile ? (
           <ScrollColumn 
             testimonials={feedbacks} 
-            duration={Math.max(feedbacks.length * SECONDS_PER_ITEM, 20)} 
+            duration={Math.max(feedbacks.length * MOBILE_SECONDS_PER_ITEM, 60)} 
           />
         ) : (
           <>
             <ScrollColumn 
               testimonials={col1.length ? col1 : feedbacks} 
-              duration={Math.max(col1.length * SECONDS_PER_ITEM, 30)} 
+              duration={Math.max(col1.length * DESKTOP_SECONDS_PER_ITEM, 60)} 
             />
             <ScrollColumn 
               testimonials={col2.length ? col2 : feedbacks} 
-              duration={Math.max(col2.length * (SECONDS_PER_ITEM + 4), 40)} 
+              duration={Math.max(col2.length * (DESKTOP_SECONDS_PER_ITEM + 10), 80)} 
               className="hidden md:flex" 
             />
             <ScrollColumn 
               testimonials={col3.length ? col3 : feedbacks} 
-              duration={Math.max(col3.length * (SECONDS_PER_ITEM + 2), 35)} 
+              duration={Math.max(col3.length * (DESKTOP_SECONDS_PER_ITEM + 5), 70)} 
               className="hidden lg:flex" 
             />
           </>
