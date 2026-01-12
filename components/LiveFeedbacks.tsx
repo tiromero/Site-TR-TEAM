@@ -55,7 +55,17 @@ const FeedbackCard: React.FC<{ item: Feedback }> = ({ item }) => (
   </div>
 );
 
-const ScrollColumn = ({ testimonials, duration = 20, className = "" }: { testimonials: Feedback[], duration?: number, className?: string }) => {
+const ScrollColumn = ({ 
+  testimonials, 
+  duration = 20, 
+  className = "",
+  isPaused = false
+}: { 
+  testimonials: Feedback[], 
+  duration?: number, 
+  className?: string,
+  isPaused?: boolean
+}) => {
   const displayList = useMemo(() => [...testimonials, ...testimonials, ...testimonials], [testimonials]);
   
   if (testimonials.length === 0) return null;
@@ -63,7 +73,7 @@ const ScrollColumn = ({ testimonials, duration = 20, className = "" }: { testimo
   return (
     <div className={className}>
       <motion.div
-        animate={{ translateY: "-33.333%" }}
+        animate={isPaused ? {} : { translateY: "-33.333%" }}
         transition={{
           duration,
           repeat: Infinity,
@@ -83,6 +93,7 @@ export const LiveFeedbacks = () => {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>(DEMO_FEEDBACKS);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -116,7 +127,7 @@ export const LiveFeedbacks = () => {
 
   useEffect(() => {
     fetchFeedbacks();
-    const interval = setInterval(fetchFeedbacks, 300000); // Sincroniza a cada 5 minutos agora
+    const interval = setInterval(fetchFeedbacks, 300000); 
     return () => clearInterval(interval);
   }, []);
 
@@ -124,38 +135,41 @@ export const LiveFeedbacks = () => {
   const col2 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 1), [feedbacks]);
   const col3 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 2), [feedbacks]);
 
-  /** 
-   * VELOCIDADE ZEN:
-   * Aumentada a duração para permitir leitura completa sem esforço.
-   * Mobile: 40 segundos por card.
-   * Desktop: 30 segundos por card.
-   */
   const MOBILE_SECONDS_PER_ITEM = 40; 
   const DESKTOP_SECONDS_PER_ITEM = 30;
 
   return (
-    <div className="relative w-full overflow-hidden max-h-[850px] [mask-image:linear-gradient(to_bottom,transparent,black_5%,black_95%,transparent)]">
+    <div 
+      className="relative w-full overflow-hidden max-h-[850px] [mask-image:linear-gradient(to_bottom,transparent,black_5%,black_95%,transparent)] select-none cursor-grab active:cursor-grabbing"
+      onPointerDown={() => setIsPaused(true)}
+      onPointerUp={() => setIsPaused(false)}
+      onPointerLeave={() => setIsPaused(false)}
+    >
       <div className="flex justify-center gap-6 py-4">
         {isMobile ? (
           <ScrollColumn 
             testimonials={feedbacks} 
             duration={Math.max(feedbacks.length * MOBILE_SECONDS_PER_ITEM, 60)} 
+            isPaused={isPaused}
           />
         ) : (
           <>
             <ScrollColumn 
               testimonials={col1.length ? col1 : feedbacks} 
               duration={Math.max(col1.length * DESKTOP_SECONDS_PER_ITEM, 60)} 
+              isPaused={isPaused}
             />
             <ScrollColumn 
               testimonials={col2.length ? col2 : feedbacks} 
               duration={Math.max(col2.length * (DESKTOP_SECONDS_PER_ITEM + 10), 80)} 
               className="hidden md:flex" 
+              isPaused={isPaused}
             />
             <ScrollColumn 
               testimonials={col3.length ? col3 : feedbacks} 
               duration={Math.max(col3.length * (DESKTOP_SECONDS_PER_ITEM + 5), 70)} 
               className="hidden lg:flex" 
+              isPaused={isPaused}
             />
           </>
         )}
