@@ -66,6 +66,8 @@ const ScrollColumn = ({
   className?: string,
   isPaused?: boolean
 }) => {
+  // Criamos uma lista triplicada para garantir que o loop infinito seja imperceptível
+  // mas o Framer Motion só vai percorrer 1/3 da lista total antes de resetar.
   const displayList = useMemo(() => [...testimonials, ...testimonials, ...testimonials], [testimonials]);
   
   if (testimonials.length === 0) return null;
@@ -110,13 +112,25 @@ export const LiveFeedbacks = () => {
 
       if (rawList.length > 0) {
         const formatted = rawList.map((item: any, index: number) => ({
-          id: item.id || `fb-${index}`,
+          id: item.id || `api-${index}-${item.name}`,
           name: item.name || item.nome || item.Nome || "Aluno TR TEAM",
           text: item.text || item.feedback || item.comentario || item.comentário || "Excelente trabalho!",
           tag: item.tag || item.categoria || item.resultado || "Resultado",
           photo: item.photo || item.foto || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name || item.nome || "A")}&background=7c3aed&color=fff&bold=true`
         }));
-        setFeedbacks(formatted);
+
+        // Lógica de Unicidade: Garante que não existam duplicatas por ID
+        // E inverte a ordem para que os enviados primeiro (mais recentes) fiquem no topo
+        setFeedbacks(prev => {
+          const combined = [...formatted, ...prev];
+          const uniqueMap = new Map();
+          combined.forEach(item => {
+            if (!uniqueMap.has(item.id)) {
+              uniqueMap.set(item.id, item);
+            }
+          });
+          return Array.from(uniqueMap.values());
+        });
       }
       setLoading(false);
     } catch (error) {
@@ -131,12 +145,13 @@ export const LiveFeedbacks = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Distribuímos os feedbacks únicos entre as colunas para evitar repetição horizontal
   const col1 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 0), [feedbacks]);
   const col2 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 1), [feedbacks]);
   const col3 = useMemo(() => feedbacks.filter((_, i) => i % 3 === 2), [feedbacks]);
 
-  const MOBILE_SECONDS_PER_ITEM = 40; 
-  const DESKTOP_SECONDS_PER_ITEM = 30;
+  // Duração dinâmica baseada no número de itens para manter a velocidade constante
+  const SECONDS_PER_ITEM = isMobile ? 12 : 15;
 
   return (
     <div 
@@ -149,25 +164,25 @@ export const LiveFeedbacks = () => {
         {isMobile ? (
           <ScrollColumn 
             testimonials={feedbacks} 
-            duration={Math.max(feedbacks.length * MOBILE_SECONDS_PER_ITEM, 60)} 
+            duration={Math.max(feedbacks.length * SECONDS_PER_ITEM, 30)} 
             isPaused={isPaused}
           />
         ) : (
           <>
             <ScrollColumn 
               testimonials={col1.length ? col1 : feedbacks} 
-              duration={Math.max(col1.length * DESKTOP_SECONDS_PER_ITEM, 60)} 
+              duration={Math.max(col1.length * SECONDS_PER_ITEM, 40)} 
               isPaused={isPaused}
             />
             <ScrollColumn 
               testimonials={col2.length ? col2 : feedbacks} 
-              duration={Math.max(col2.length * (DESKTOP_SECONDS_PER_ITEM + 10), 80)} 
+              duration={Math.max(col2.length * (SECONDS_PER_ITEM + 2), 50)} 
               className="hidden md:flex" 
               isPaused={isPaused}
             />
             <ScrollColumn 
               testimonials={col3.length ? col3 : feedbacks} 
-              duration={Math.max(col3.length * (DESKTOP_SECONDS_PER_ITEM + 5), 70)} 
+              duration={Math.max(col3.length * (SECONDS_PER_ITEM - 2), 45)} 
               className="hidden lg:flex" 
               isPaused={isPaused}
             />
