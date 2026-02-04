@@ -22,7 +22,8 @@ import {
   ShieldCheck,
   ShoppingBag,
   FileText,
-  MessageSquare
+  MessageSquare,
+  Lock
 } from 'lucide-react';
 
 const ScrollProgressBar = () => {
@@ -40,6 +41,42 @@ const ScrollProgressBar = () => {
     />
   );
 };
+
+const PaymentIcons = () => (
+  <div className="flex items-center gap-3 opacity-80 hover:opacity-100 transition-opacity">
+    {/* Visa */}
+    <svg width="30" height="10" viewBox="0 0 30 10" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-auto">
+      <path d="M11.2353 0.176465L8.29412 7.05882L7.35294 1.94118C7.17647 0.941177 6.47059 0.176465 5.52941 0.176465H0.176471L0 0.411759C1.11765 0.705877 2.11765 1.17647 3 1.76471C3.52941 2.11765 3.70588 2.35294 3.88235 3L5.47059 9.17647H9.17647L14.8235 0.176465H11.2353Z" fill="#1434CB"/>
+      <path d="M21.5294 6.35294C21.5294 4.05882 18.5294 3.94118 18.5294 2.82353C18.5294 2.47059 18.8824 2.11765 19.5882 2.11765C20 2.11765 21.0588 2.23529 22.0588 2.70588L22.4118 0.529412C21.4118 0.176471 20.3529 0 19.2353 0C16.8824 0 15.1765 1.29412 15.1765 3.17647C15.1765 5.58824 18.3529 5.70588 18.3529 6.94118C18.3529 7.35294 17.8824 7.76471 16.9412 7.76471C15.8235 7.76471 14.8824 7.41177 13.8824 6.94118L13.5294 9.17647C14.5882 9.64706 15.8235 9.88235 17.1176 9.88235C19.6471 10 21.5294 8.70588 21.5294 6.35294Z" fill="#1434CB"/>
+      <path d="M28.4118 0.176465H25.5882C24.8824 0.176465 24.3529 0.588235 24.0588 1.23529L19.2353 12.5294H22.7647L23.4706 10.5882H27.7647L28.1765 12.5294H31.3529L28.4118 0.176465ZM24.4118 8.11765L25.5882 4.88235L26.2353 8.11765H24.4118Z" fill="#1434CB"/>
+      <path d="M14.5294 0.176465H11.2353L10.2353 9.17647H13.5294L14.5294 0.176465Z" fill="#F7B600"/>
+    </svg>
+
+    {/* Mastercard */}
+    <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-3 w-auto">
+      <circle cx="7" cy="7" r="7" fill="#EB001B"/>
+      <circle cx="15" cy="7" r="7" fill="#F79E1B"/>
+      <path d="M11 2.22217C12.1932 3.40794 12.9167 5.04414 12.9167 6.85179C12.9167 8.65945 12.1932 10.2956 11 11.4814C9.80682 10.2956 9.08333 8.65945 9.08333 6.85179C9.08333 5.04414 9.80682 3.40794 11 2.22217Z" fill="#FF5F00"/>
+    </svg>
+
+    {/* Elo */}
+    <svg width="28" height="12" viewBox="0 0 54 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-3 w-auto">
+      <circle cx="10" cy="10" r="8" fill="#E61C23"/>
+      <circle cx="27" cy="10" r="8" fill="#F9CF09"/>
+      <circle cx="44" cy="10" r="8" fill="#00A0E3"/>
+    </svg>
+
+    {/* Hipercard */}
+    <div className="bg-[#B81F25] px-1 py-0.5 rounded-[2px] h-3.5 flex items-center shadow-sm">
+      <span className="text-[7px] font-black text-white leading-none tracking-tighter italic">Hipercard</span>
+    </div>
+
+    {/* Pix */}
+    <svg width="14" height="14" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-auto">
+      <path d="M363.8 54.2c-15.5-15.5-40.7-15.5-56.2 0l-45.7 45.7c-3.1 3.1-8.1 3.1-11.2 0l-45.7-45.7c-15.5-15.5-40.7-15.5-56.2 0l-94.6 94.6c-15.5 15.5-15.5 40.7 0 56.2l45.7 45.7c3.1 3.1 3.1 8.1 0 11.2l-45.7 45.7c-15.5 15.5-15.5 40.7 0 56.2l94.6 94.6c15.5 15.5 40.7 15.5 56.2 0l45.7-45.7c3.1-3.1 8.1-3.1 11.2 0l45.7 45.7c15.5 15.5 40.7 15.5 56.2 0l94.6-94.6c15.5-15.5 15.5-40.7 0-56.2l-45.7-45.7c-3.1-3.1-3.1-8.1 0-11.2l45.7-45.7c15.5-15.5 15.5-40.7 0-56.2l-94.6-94.6zM256 210c25.4 0 46 20.6 46 46s-20.6 46-46 46-46-20.6-46-46 20.6-46 46-46z" fill="#32BCAD"/>
+    </svg>
+  </div>
+);
 
 const TickerBanner = () => (
   <div className="w-full bg-purple-600 py-3 overflow-hidden whitespace-nowrap border-y border-purple-400/30">
@@ -163,10 +200,19 @@ const BasicPlanSection = () => (
             {BASIC_PLAN.cta}
           </button>
           
-          <div className="mt-8 flex flex-col items-center gap-2">
-            <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-[0.1em] leading-relaxed max-w-xs">
-              * Sujeito a taxas de acordo com a plataforma de pagamento InfinityPay.
-            </p>
+          {/* Checkout Info / InfinityPay Styliing */}
+          <div className="mt-8 flex flex-col items-center gap-4 bg-zinc-900/40 p-5 rounded-3xl border border-white/5 w-full max-w-sm shadow-[0_10px_30px_-5px_rgba(0,0,0,0.3)]">
+            <div className="flex flex-col items-center gap-1">
+              <div className="flex items-center gap-1.5 text-zinc-500 mb-1">
+                <Lock className="w-3 h-3 text-emerald-500/60" />
+                <span className="text-[9px] font-black uppercase tracking-[0.2em]">Pagamento Seguro via InfinityPay</span>
+              </div>
+              <p className="text-[9px] text-zinc-500 font-bold uppercase tracking-[0.05em] leading-relaxed text-center opacity-80 max-w-[240px]">
+                Aceitamos as principais bandeiras e PIX.
+              </p>
+            </div>
+            
+            <PaymentIcons />
           </div>
         </div>
       </div>
