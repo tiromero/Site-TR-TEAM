@@ -18,9 +18,11 @@ import {
   HelpCircle, 
   Star,
   CheckCircle2,
-  AlertTriangle,
   Send,
-  ShieldCheck
+  ShieldCheck,
+  ShoppingBag,
+  FileText,
+  MessageSquare
 } from 'lucide-react';
 
 const ScrollProgressBar = () => {
@@ -79,7 +81,7 @@ const BasicPlanSection = () => (
             "{BASIC_PLAN.description}"
           </p>
           
-          <div className="mb-8">
+          <div className="mb-10">
             <h4 className="text-purple-500 font-black text-[10px] uppercase tracking-[0.3em] mb-4 border-b border-zinc-800/50 pb-2">
               O que está incluído no pacote:
             </h4>
@@ -95,12 +97,48 @@ const BasicPlanSection = () => (
             </ul>
           </div>
 
-          <div className="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl flex gap-4 items-start shadow-inner">
-            <AlertTriangle className="w-6 h-6 text-yellow-500 shrink-0 mt-1" />
-            <div className="space-y-3 text-left">
-              <p className="text-[11px] font-bold text-yellow-100/80 leading-relaxed uppercase tracking-wide">
-                <span className="text-yellow-500">Atenção:</span> Após preencher tudo vamos analisar pagamento e formulário. Envie corretamente os dados iguais aos da compra e seu usuário do Telegram para liberarmos seu acesso ao App!
-              </p>
+          {/* Processos Visuais de Atenção */}
+          <div className="space-y-4">
+            <h4 className="text-zinc-500 font-black text-[9px] uppercase tracking-[0.4em] mb-4">Próximos Passos:</h4>
+            
+            <div className="grid gap-3">
+              {/* Passo 1 */}
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-purple-500/30 transition-all group/step">
+                <div className="w-10 h-10 rounded-xl bg-purple-600/10 flex items-center justify-center border border-purple-500/20 text-xl">
+                  👑
+                </div>
+                <div>
+                  <div className="text-[10px] font-black text-purple-500 uppercase tracking-widest mb-0.5">Passo 01</div>
+                  <div className="text-sm font-bold text-white uppercase tracking-tight">Adquirir Plano Basic</div>
+                </div>
+                <ShoppingBag className="w-4 h-4 text-zinc-700 ml-auto group-hover/step:text-purple-500 transition-colors" />
+              </div>
+
+              {/* Passo 2 */}
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-emerald-500/30 transition-all group/step">
+                <div className="w-10 h-10 rounded-xl bg-emerald-600/10 flex items-center justify-center border border-emerald-500/20 text-xl">
+                  📧
+                </div>
+                <div className="flex-1">
+                  <div className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-0.5">Passo 02</div>
+                  <div className="text-sm font-bold text-white uppercase tracking-tight">Já paguei — Preencher cadastro</div>
+                </div>
+                <FileText className="w-4 h-4 text-zinc-700 ml-auto group-hover/step:text-emerald-500 transition-colors" />
+              </div>
+
+              {/* Passo 3 */}
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-blue-500/30 transition-all group/step">
+                <div className="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center border border-blue-500/20 text-xl">
+                  🐻
+                </div>
+                <div className="flex-1">
+                  <div className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-0.5">Passo 03</div>
+                  <div className="text-xs font-bold text-white uppercase tracking-tight leading-snug">
+                    Abrir Ticket (/start) : <span className="text-zinc-400 font-medium">enviando o comprovante e/ou utilizar o ajuste de treino.</span>
+                  </div>
+                </div>
+                <MessageSquare className="w-4 h-4 text-zinc-700 ml-auto group-hover/step:text-blue-500 transition-colors" />
+              </div>
             </div>
           </div>
         </div>
