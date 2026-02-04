@@ -1,31 +1,27 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { PLANS, FAQS, CONSULTANCY_STEPS } from './constants';
+import { PLANS, BASIC_PLAN, FAQS, CONSULTANCY_STEPS } from './constants';
 import { PlanCard } from './components/PlanCard';
 import { FAQItem } from './components/FAQItem';
 import HowItWorksCards from './components/HowItWorksCards';
 import { MagnetizeCTA } from './components/MagnetizeCTA';
-import { AvatarGroup } from './components/ui/avatar-group';
 import { FloatingNav } from './components/ui/floating-navbar';
 import { InteractiveInstaPost } from './components/ui/InteractiveInstaPost';
 import { LiveFeedbacks } from './components/LiveFeedbacks';
+import { GlowingEffect } from './components/ui/glowing-effect';
 import { 
   LayoutDashboard, 
   User, 
   Dumbbell, 
   CreditCard, 
   HelpCircle, 
-  Star 
+  Star,
+  CheckCircle2,
+  AlertTriangle,
+  Send,
+  ShieldCheck
 } from 'lucide-react';
-
-const STUDENT_AVATARS = [
-  { src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150", label: "Ana S." },
-  { src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150", label: "Marcos V." },
-  { src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150", label: "Juliana R." },
-  { src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150", label: "Ricardo F." },
-  { src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150", label: "Elena M." },
-];
 
 const ScrollProgressBar = () => {
   const { scrollYProgress } = useScroll();
@@ -43,25 +39,6 @@ const ScrollProgressBar = () => {
   );
 };
 
-const SocialProof = () => (
-  <div className="flex flex-col sm:flex-row items-center gap-4 mt-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500">
-    <AvatarGroup avatars={STUDENT_AVATARS} maxVisible={5} size={42} />
-    <div className="text-left">
-      <p className="text-white font-black text-sm tracking-tight leading-none mb-1">
-        +50 Alunos já começaram
-      </p>
-      <div className="flex items-center gap-1">
-        {[...Array(5)].map((_, i) => (
-          <svg key={i} className="w-3 h-3 text-yellow-500 fill-current" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-        ))}
-        <span className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest ml-1">Treinando com qualidade e bons resultados!</span>
-      </div>
-    </div>
-  </div>
-);
-
 const TickerBanner = () => (
   <div className="w-full bg-purple-600 py-3 overflow-hidden whitespace-nowrap border-y border-purple-400/30">
     <div className="inline-block animate-marquee">
@@ -73,6 +50,88 @@ const TickerBanner = () => (
       {[...Array(20)].map((_, i) => (
         <span key={i} className="mx-4 font-heading font-black text-xs md:text-sm text-white/90">TR TEAM</span>
       ))}
+    </div>
+  </div>
+);
+
+const BasicPlanSection = () => (
+  <div className="relative mt-20 group rounded-[2.5rem]">
+    <GlowingEffect
+      spread={40}
+      glow={true}
+      disabled={false}
+      proximity={64}
+      inactiveZone={0.01}
+      borderWidth={1.5}
+      movementDuration={2.5}
+    />
+    <div className="relative z-10 p-8 lg:p-12 rounded-[2.5rem] bg-[#0c0c0c] border border-white/5 overflow-hidden">
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-zinc-900 rounded-full border border-white/10 text-zinc-400 text-[10px] font-black uppercase tracking-[0.2em] mb-6">
+            <ShieldCheck className="w-4 h-4 text-purple-500" />
+            Entrada Facilitada
+          </div>
+          <h3 className="font-heading text-4xl lg:text-5xl font-black text-white mb-6 uppercase leading-tight tracking-tighter">
+            {BASIC_PLAN.name}
+          </h3>
+          <p className="text-zinc-400 text-lg leading-relaxed mb-8 font-medium italic">
+            "{BASIC_PLAN.description}"
+          </p>
+          
+          <div className="mb-8">
+            <h4 className="text-purple-500 font-black text-[10px] uppercase tracking-[0.3em] mb-4 border-b border-zinc-800/50 pb-2">
+              O que está incluído no pacote:
+            </h4>
+            <ul className="grid sm:grid-cols-2 gap-4">
+              {BASIC_PLAN.features.map((feature, i) => (
+                <li key={i} className="flex items-center gap-3 text-xs font-bold uppercase tracking-tight text-zinc-300 leading-tight">
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                  </div>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl flex gap-4 items-start shadow-inner">
+            <AlertTriangle className="w-6 h-6 text-yellow-500 shrink-0 mt-1" />
+            <div className="space-y-3 text-left">
+              <p className="text-[11px] font-bold text-yellow-100/80 leading-relaxed uppercase tracking-wide">
+                <span className="text-yellow-500">Atenção:</span> Após preencher tudo vamos analisar pagamento e formulário. Envie corretamente os dados iguais aos da compra e seu usuário do Telegram para liberarmos seu acesso ao App!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-center text-center lg:border-l lg:border-white/5 lg:pl-12">
+          <div className="mb-8 group/price">
+            <span className="text-zinc-500 text-xs font-black uppercase tracking-[0.3em] block mb-2 transition-colors group-hover/price:text-purple-400">Início Imediato</span>
+            <div className="flex items-baseline gap-2 justify-center">
+              <span className="text-6xl font-black text-white tracking-tighter">{BASIC_PLAN.price}</span>
+              <span className="text-zinc-600 font-bold text-lg">/mês</span>
+            </div>
+            <div className="mt-4 inline-block px-4 py-1.5 bg-white/5 rounded-full border border-white/5">
+               <span className="text-[11px] text-zinc-400 font-black uppercase tracking-widest">Acesso Trimestral: {BASIC_PLAN.totalPrice}</span>
+            </div>
+          </div>
+          
+          <button 
+            onClick={() => window.open(BASIC_PLAN.telegramLink, '_blank')}
+            className="w-full max-w-sm py-6 bg-[#0088cc] hover:bg-[#007ab8] text-white rounded-[1.5rem] font-black text-sm uppercase tracking-[0.2em] transition-all duration-300 shadow-[0_15px_40px_-10px_rgba(0,136,204,0.4)] flex items-center justify-center gap-4 group/btn active:scale-95 border-b-4 border-[#006699] hover:translate-y-[-2px]"
+          >
+            <Send className="w-5 h-5 transition-transform group-hover/btn:translate-x-1" />
+            {BASIC_PLAN.cta}
+          </button>
+          
+          <div className="mt-8 flex flex-col items-center gap-2">
+            <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-[0.1em] leading-relaxed max-w-xs">
+              * Sujeito a taxas de acordo com a plataforma de pagamento InfinityPay.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );
@@ -177,7 +236,6 @@ const App: React.FC = () => {
               </p>
               <div className="flex flex-col items-center sm:items-start">
                 <MagnetizeCTA text="ASSINAR AGORA" subtext="FOCO TOTAL NO RESULTADO" onClick={() => navigateTo('planos')} />
-                <SocialProof />
               </div>
             </div>
             <div className="relative hidden lg:block">
@@ -244,8 +302,10 @@ const App: React.FC = () => {
                 <PlanCard key={plan.id} plan={plan} />
               ))}
             </div>
+
+            <BasicPlanSection />
             
-            <div className="max-w-2xl mx-auto text-center px-6">
+            <div className="max-w-2xl mx-auto text-center px-6 mt-16">
               <p className="text-[10px] md:text-xs text-zinc-500 font-bold uppercase tracking-widest leading-relaxed opacity-60">
                 * Atenção: Os valores totais exibidos correspondem ao pagamento à vista. Parcelamentos via cartão de crédito através da plataforma InfinityPay estão sujeitos a taxas adicionais e juros conforme o número de parcelas selecionado pelo usuário.
               </p>
@@ -294,7 +354,6 @@ const App: React.FC = () => {
 
             <div className="mt-20 flex flex-col items-center">
               <MagnetizeCTA text="QUERO MEU RESULTADO TAMBÉM" onClick={() => navigateTo('planos')} />
-              <SocialProof />
             </div>
           </div>
         </section>

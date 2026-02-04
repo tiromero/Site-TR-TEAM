@@ -61,6 +61,21 @@ export const PLANS: Plan[] = [
   }
 ];
 
+export const BASIC_PLAN = {
+  name: 'PLANO BASIC',
+  description: 'A porta de entrada ideal para sua transformação. Tenha acesso à metodologia TR TEAM com treinos estruturados, sem precisar de um alto investimento inicial.',
+  features: [
+    'Treino estruturado no app',
+    'Direito a 1 ajuste',
+    'Plano válido por 3 meses',
+    'Acesso ao histórico de progressões e funções de saúde no app'
+  ],
+  price: 'R$100',
+  totalPrice: 'R$300',
+  cta: 'ADQUIRIR ACESSO BASIC',
+  telegramLink: 'https://t.me/+Nr428kCib6M5ZDEx'
+};
+
 export const FAQS: FAQ[] = [
   {
     question: "A consultoria de treino online é tão eficaz quanto um acompanhamento presencial?",
