@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 import { PLANS, BASIC_PLAN, FAQS, CONSULTANCY_STEPS } from './constants';
 import { PlanCard } from './components/PlanCard';
 import { FAQItem } from './components/FAQItem';
@@ -458,6 +459,7 @@ const App: React.FC = () => {
           </div>
         </footer>
       </div>
+      <Analytics />
     </div>
   );
 };
