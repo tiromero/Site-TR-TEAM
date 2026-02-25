@@ -75,7 +75,7 @@ export const InteractiveInstaPost: React.FC<InteractiveInstaPostProps> = ({
             src={embedUrl}
             className="w-full h-full border-none"
             scrolling="no"
-            allowTransparency={true}
+            allowtransparency="true"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
           ></iframe>
         </div>
