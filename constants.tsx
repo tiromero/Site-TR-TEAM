@@ -34,7 +34,7 @@ export const PLANS: Plan[] = [
   {
     id: 'semiannual',
     name: 'PACOTE SEMESTRAL',
-    price: 'R$200',
+    price: 'R$200*',
     originalPrice: 'R$1200',
     description: 'Excelente para os que desejam um acompanhamento contínuo e completo, com maior nível de suporte.',
     features: [
@@ -48,7 +48,7 @@ export const PLANS: Plan[] = [
   {
     id: 'annual',
     name: 'PACOTE ANUAL',
-    price: 'R$185',
+    price: 'R$185*',
     originalPrice: 'R$2220',
     description: 'Confiança e Economia. O mais completo e com maior desconto para um trabalho otimizado a longo prazo.',
     features: [
@@ -70,7 +70,7 @@ export const BASIC_PLAN = {
     'Plano válido por 3 meses',
     'Acesso ao histórico de progressões e funções de saúde no app'
   ],
-  price: 'R$100',
+  price: 'R$100*',
   totalPrice: 'R$300',
   cta: 'ADQUIRIR ACESSO BASIC',
   telegramLink: 'https://t.me/+Nr428kCib6M5ZDEx'
