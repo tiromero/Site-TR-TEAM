@@ -19,7 +19,7 @@ export const PLANS: Plan[] = [
   {
     id: 'quarterly',
     name: 'PACOTE TRIMESTRAL',
-    price: 'R$215',
+    price: 'R$215*',
     originalPrice: 'R$645',
     description: 'Perfeito para uma periodização completa e consolidada dentro do objetivo proposto.',
     features: [
