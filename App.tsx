@@ -379,7 +379,7 @@ const App: React.FC = () => {
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center mb-16">
               <h2 className="font-heading text-4xl md:text-6xl font-black mb-4">Escolha sua Jornada</h2>
-              <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">Escolha o nível de suporte ideal para sua rotina e vamos juntos buscar o seu topo.</p>
+              <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">OBS: Valores com * é sujeito a alteração pela quantidades de parcelamento.</p>
             </div>
             <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
               {PLANS.map((plan) => (
