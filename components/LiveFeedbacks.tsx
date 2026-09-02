@@ -12,7 +12,7 @@ interface Feedback {
   photo?: string;
 }
 
-const API_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLglVBpvyxHXMWm6ekh6Rq_fMQxWjMBYGlEbyCvIhBbqqyawtVjp1_0W6p0zJTXKmBeNm-wbkzDXV-2N6WDzJ-DtHedrTm2NMMjHPuDhD-qFe1u13EGtw-GHRUzLucGxc1KHYpES4kiCGj_WTRsD9q05dCgDUaTTwCUSUeiNHH8gi-MXr5DQskiqLH53bol8TBltB73tvvm3s-FZ9D3Ch65aM-T9msdg6eQrAy7pjt5cthh0P5cAMKTtOCmTT5Cg4qcMu89J66jD-vxiUlRiyamzzwJC9vAz3dqYctcr&lib=M4MxsoMYlmaNoauxz5nM5R7BBTg3DmODe"; 
+const API_URL = "https://script.google.com/macros/s/AKfycbzqojEInicmBHs8j1vVbVbnX2X40CmDLdedG7VdZP1gv1qeNCkms6uzY4ZSAoI9j0-caw/exec"; 
 
 const DEMO_FEEDBACKS: Feedback[] = [
   { id: "d1", name: "Carlos Magno", text: "O protocolo de pernas mudou meu jogo. Em 3 semanas a definição já é outra!", tag: "Hipertrofia", photo: "https://ui-avatars.com/api/?name=Carlos+Magno&background=7c3aed&color=fff&bold=true" },
