@@ -13,7 +13,7 @@ interface Feedback {
 }
 
 // Insira a URL do seu Google Apps Script (terminada em /exec) abaixo:
-const APPS_SCRIPT_URL = ""; 
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqojEInicmBHs8j1vVbVbnX2X40CmDLdedG7VdZP1gv1qeNCkms6uzY4ZSAoI9j0-caw/exec"; 
 
 const DEMO_FEEDBACKS: Feedback[] = [
   { id: "d1", name: "Carlos Magno", text: "O protocolo de pernas mudou meu jogo. Em 3 semanas a definição já é outra!", tag: "Hipertrofia", photo: "https://ui-avatars.com/api/?name=Carlos+Magno&background=7c3aed&color=fff&bold=true" },
