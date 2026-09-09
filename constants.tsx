@@ -5,7 +5,7 @@ export const PLANS: Plan[] = [
   {
     id: 'monthly',
     name: 'PACOTE MENSAL',
-    price: 'R$230',
+    price: 'R$230*',
     description: 'Ideal apenas para quem precisa de orientação pontual.',
     features: [
       'TREINO NO APLICATIVO',
@@ -20,7 +20,7 @@ export const PLANS: Plan[] = [
     id: 'quarterly',
     name: 'PACOTE TRIMESTRAL',
     price: 'R$215*',
-    originalPrice: 'R$645',
+    originalPrice: 'R$645*',
     description: 'Perfeito para uma periodização completa e consolidada dentro do objetivo proposto.',
     features: [
       'BENEFÍCIOS DO MENSAL',
@@ -35,7 +35,7 @@ export const PLANS: Plan[] = [
     id: 'semiannual',
     name: 'PACOTE SEMESTRAL',
     price: 'R$200*',
-    originalPrice: 'R$1200',
+    originalPrice: 'R$1200*',
     description: 'Excelente para os que desejam um acompanhamento contínuo e completo, com maior nível de suporte.',
     features: [
       'BENEFÍCIOS DO MENSAL/TRIMESTRAL',
@@ -49,7 +49,7 @@ export const PLANS: Plan[] = [
     id: 'annual',
     name: 'PACOTE ANUAL',
     price: 'R$185*',
-    originalPrice: 'R$2220',
+    originalPrice: 'R$2220*',
     description: 'Confiança e Economia. O mais completo e com maior desconto para um trabalho otimizado a longo prazo.',
     features: [
       'BENEFÍCIOS DE TODOS OS PACOTES',
@@ -71,7 +71,7 @@ export const BASIC_PLAN = {
     'Acesso ao histórico de progressões e funções de saúde no app'
   ],
   price: 'R$100*',
-  totalPrice: 'R$300',
+  totalPrice: 'R$300*',
   cta: 'ADQUIRIR ACESSO BASIC',
   telegramLink: 'https://t.me/+Nr428kCib6M5ZDEx'
 };

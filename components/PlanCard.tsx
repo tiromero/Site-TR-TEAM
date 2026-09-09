@@ -9,7 +9,7 @@ interface PlanCardProps {
 
 export const PlanCard: React.FC<PlanCardProps> = ({ plan }) => {
   const handleWhatsAppRedirect = () => {
-    const phoneNumber = "5516991849777";
+    const phoneNumber = "5516993610513";
     const message = encodeURIComponent(`Olá, gostaria de saber se há vaga disponivel para o ${plan.name}`);
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
@@ -58,6 +58,9 @@ export const PlanCard: React.FC<PlanCardProps> = ({ plan }) => {
                 </p>
               </div>
             )}
+            <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest mt-2 block opacity-80">
+              *Sujeito a taxas no parcelamento
+            </span>
           </div>
         </div>
 

@@ -190,6 +190,9 @@ const BasicPlanSection = () => (
             <div className="mt-4 inline-block px-4 py-1.5 bg-white/5 rounded-full border border-white/5">
                <span className="text-[11px] text-zinc-400 font-black uppercase tracking-widest">Acesso Trimestral: {BASIC_PLAN.totalPrice}</span>
             </div>
+            <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest mt-2.5 block opacity-80">
+              *Sujeito a taxas conforme parcelamento
+            </span>
           </div>
           
           <button 
@@ -379,7 +382,7 @@ const App: React.FC = () => {
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center mb-16">
               <h2 className="font-heading text-4xl md:text-6xl font-black mb-4">Escolha sua Jornada</h2>
-              <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">OBS: Valores com * é sujeito a alteração pela quantidades de parcelamento.</p>
+              <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">Escolha o nível de suporte ideal para sua rotina e vamos juntos buscar o seu topo.</p>
             </div>
             <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
               {PLANS.map((plan) => (
@@ -389,9 +392,9 @@ const App: React.FC = () => {
 
             <BasicPlanSection />
             
-            <div className="max-w-2xl mx-auto text-center px-6 mt-16">
-              <p className="text-[10px] md:text-xs text-zinc-500 font-bold uppercase tracking-widest leading-relaxed opacity-60">
-                * Atenção: Os valores totais exibidos correspondem ao pagamento à vista. Parcelamentos via cartão de crédito através da plataforma InfinityPay estão sujeitos a taxas adicionais e juros conforme o número de parcelas selecionado pelo usuário.
+            <div className="max-w-3xl mx-auto text-center px-6 mt-16">
+              <p className="text-[11px] md:text-xs text-zinc-400 font-bold uppercase tracking-widest leading-relaxed">
+                * Os valores exibidos correspondem ao pagamento à vista. Parcelamentos no cartão de crédito via plataforma InfinityPay estão sujeitos a taxas adicionais conforme a quantidade de parcelas selecionada pelo aluno.
               </p>
             </div>
           </div>

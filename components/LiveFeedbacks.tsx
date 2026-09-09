@@ -12,7 +12,8 @@ interface Feedback {
   photo?: string;
 }
 
-const API_URL = "https://script.google.com/macros/s/AKfycbzqojEInicmBHs8j1vVbVbnX2X40CmDLdedG7VdZP1gv1qeNCkms6uzY4ZSAoI9j0-caw/exec"; 
+// Insira a URL do seu Google Apps Script (terminada em /exec) abaixo:
+const APPS_SCRIPT_URL = ""; 
 
 const DEMO_FEEDBACKS: Feedback[] = [
   { id: "d1", name: "Carlos Magno", text: "O protocolo de pernas mudou meu jogo. Em 3 semanas a definição já é outra!", tag: "Hipertrofia", photo: "https://ui-avatars.com/api/?name=Carlos+Magno&background=7c3aed&color=fff&bold=true" },
@@ -105,36 +106,56 @@ export const LiveFeedbacks = () => {
   }, []);
 
   const fetchFeedbacks = async () => {
+    if (!APPS_SCRIPT_URL || !APPS_SCRIPT_URL.trim().startsWith("http")) {
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(APPS_SCRIPT_URL);
+      if (!response.ok) {
+        setLoading(false);
+        return;
+      }
+
       const data = await response.json();
       const rawList = Array.isArray(data) ? data : (data.data || []);
 
       if (rawList.length > 0) {
-        const formatted = rawList.map((item: any, index: number) => ({
-          id: item.id || `api-${index}-${item.name}`,
-          name: item.name || item.nome || item.Nome || "Aluno TR TEAM",
-          text: item.text || item.feedback || item.comentario || item.comentário || "Excelente trabalho!",
-          tag: item.tag || item.categoria || item.resultado || "Resultado",
-          photo: item.photo || item.foto || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name || item.nome || "A")}&background=7c3aed&color=fff&bold=true`
-        }));
+        const formatted: Feedback[] = rawList
+          .filter((item: any) => {
+            const text = item.text || item.feedback || item.comentario || item.comentário || item.depoimento || item["Seu feedback"] || item["Feedback"] || "";
+            const name = item.name || item.nome || item.Nome || item["Nome"] || "";
+            return Boolean(text || name);
+          })
+          .map((item: any, index: number) => {
+            const name = item.name || item.nome || item.Nome || item["Nome"] || item["Nome completo"] || "Aluno TR TEAM";
+            const text = item.text || item.feedback || item.comentario || item.comentário || item.depoimento || item["Seu feedback"] || item["Feedback"] || "Excelente trabalho!";
+            const tag = item.tag || item.categoria || item.resultado || item["Resultado"] || item.objetivo || "Resultado";
+            const photo = item.photo || item.foto || item.imagem || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=7c3aed&color=fff&bold=true`;
+            return {
+              id: item.id || `aluno-${index}-${encodeURIComponent(name)}`,
+              name,
+              text,
+              tag,
+              photo
+            };
+          });
 
-        // Lógica de Unicidade: Garante que não existam duplicatas por ID
-        // E inverte a ordem para que os enviados primeiro (mais recentes) fiquem no topo
-        setFeedbacks(prev => {
-          const combined = [...formatted, ...prev];
-          const uniqueMap = new Map();
-          combined.forEach(item => {
+        if (formatted.length > 0) {
+          // Quando a integração retornar dados válidos, substitui pelos feedbacks reais
+          const uniqueMap = new Map<string, Feedback>();
+          formatted.forEach(item => {
             if (!uniqueMap.has(item.id)) {
               uniqueMap.set(item.id, item);
             }
           });
-          return Array.from(uniqueMap.values());
-        });
+          setFeedbacks(Array.from(uniqueMap.values()));
+        }
       }
       setLoading(false);
-    } catch (error) {
-      console.error("Erro ao carregar feedbacks:", error);
+    } catch {
+      // Fallback seguro: se a URL estiver inacessível ou offline, mantém os feedbacks de exibição
       setLoading(false);
     }
   };
