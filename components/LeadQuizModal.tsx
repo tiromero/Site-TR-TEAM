@@ -13,10 +13,35 @@ import {
   Dumbbell,
   Clock,
   Target,
-  UserCheck
+  UserCheck,
+  ChevronDown
 } from 'lucide-react';
 
-export const DEFAULT_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmoznIqpCZNubMeMoH9XIRHWsp1Hbwv4e3HpM1wtqfX2xsqS6y8lBV9cj_9CQp68ZE/exec";
+interface CountryOption {
+  code: string;
+  flag: string;
+  name: string;
+  placeholder: string;
+}
+
+const COUNTRIES: CountryOption[] = [
+  { code: '+55', flag: '🇧🇷', name: 'Brasil (+55)', placeholder: '(11) 98765-4321' },
+  { code: '+351', flag: '🇵🇹', name: 'Portugal (+351)', placeholder: '912 345 678' },
+  { code: '+1', flag: '🇺🇸', name: 'EUA / Canadá (+1)', placeholder: '(555) 123-4567' },
+  { code: '+34', flag: '🇪🇸', name: 'Espanha (+34)', placeholder: '612 34 56 78' },
+  { code: '+44', flag: '🇬🇧', name: 'Reino Unido (+44)', placeholder: '7911 123456' },
+  { code: '+353', flag: '🇮🇪', name: 'Irlanda (+353)', placeholder: '85 123 4567' },
+  { code: '+39', flag: '🇮🇹', name: 'Itália (+39)', placeholder: '312 345 6789' },
+  { code: '+49', flag: '🇩🇪', name: 'Alemanha (+49)', placeholder: '151 12345678' },
+  { code: '+41', flag: '🇨🇭', name: 'Suíça (+41)', placeholder: '78 123 45 67' },
+  { code: '+33', flag: '🇫🇷', name: 'França (+33)', placeholder: '6 12 34 56 78' },
+  { code: '+595', flag: '🇵🇾', name: 'Paraguai (+595)', placeholder: '981 123456' },
+  { code: '+81', flag: '🇯🇵', name: 'Japão (+81)', placeholder: '90 1234 5678' },
+  { code: '+61', flag: '🇦🇺', name: 'Austrália (+61)', placeholder: '412 345 678' },
+  { code: 'other', flag: '🌐', name: 'Outro País', placeholder: 'Número completo' },
+];
+
+export const DEFAULT_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwVlXXY3ecWCIwk2NEPesHkYEGTHadgIuPpKu6xOTUTdggN0yiUy59iCUbT7REmkG7c/exec";
 
 export interface LeadQuizModalProps {
   isOpen: boolean;
@@ -223,7 +248,8 @@ export const LeadQuizModal: React.FC<LeadQuizModalProps> = ({
   const [answers, setAnswers] = useState<QuizState>(INITIAL_STATE);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [countryCode] = useState<string>('+55');
+  const [countryCode, setCountryCode] = useState<string>('+55');
+  const [customDdi, setCustomDdi] = useState<string>('+');
 
   // Travar o scroll da página principal enquanto o modal do quiz estiver aberto
   useEffect(() => {
@@ -268,7 +294,11 @@ export const LeadQuizModal: React.FC<LeadQuizModalProps> = ({
     if (step === QUESTIONS.length + 1) {
       // Tela de Contato
       const cleanPhone = answers.celular.replace(/\D/g, '');
-      const validPhone = cleanPhone.length >= 10 && cleanPhone.length <= 11;
+      const validPhone = countryCode === '+55' 
+        ? (cleanPhone.length >= 10 && cleanPhone.length <= 11)
+        : (countryCode === 'other'
+            ? (cleanPhone.length >= 6 && customDdi.replace(/\D/g, '').length >= 1)
+            : cleanPhone.length >= 6);
       const validName = answers.nome.trim().length >= 3;
       const validInsta = answers.instagram.trim().length >= 2;
       return validName && validPhone && validInsta && answers.lgpd_consent;
@@ -328,6 +358,10 @@ export const LeadQuizModal: React.FC<LeadQuizModalProps> = ({
       second: '2-digit'
     });
 
+    const finalDdi = countryCode === 'other'
+      ? (customDdi.trim().startsWith('+') ? customDdi.trim() : `+${customDdi.trim()}`)
+      : countryCode;
+
     // Payload unificado para a Consultoria TR TEAM (Sem distinção de pacotes)
     const payload = {
       data_hora: dataHoraFormatada,
@@ -343,7 +377,8 @@ export const LeadQuizModal: React.FC<LeadQuizModalProps> = ({
       momento: answers.momento,
       fator_decisao: answers.fator_decisao,
       nome: answers.nome.trim(),
-      celular: `${countryCode} ${answers.celular}`,
+      // O apóstrofo inicial ' força o Google Sheets e Excel a tratarem o telefone como texto puro, evitando o erro #ERROR! causado pelo sinal de +
+      celular: `'${finalDdi} ${answers.celular.trim()}`,
       instagram: normalizeInstagram(answers.instagram),
       origem: typeof window !== 'undefined' ? window.location.href : 'Site Direto',
       tipo_aplicacao: 'Consultoria Online TR TEAM'
@@ -650,27 +685,71 @@ export const LeadQuizModal: React.FC<LeadQuizModalProps> = ({
                     />
                   </div>
 
-                  {/* Celular com DDD e Seletor Brasil +55 */}
+                  {/* Celular com DDD / DDI e Seletor Internacional de País */}
                   <div>
                     <label htmlFor="lead-phone" className="block text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">
-                      Celular COM DDD *
+                      WhatsApp / Celular com Código de Área *
                     </label>
-                    <div className="flex items-center gap-3 border-b-2 border-white/20 focus-within:border-purple-500 transition-colors pb-1">
-                      {/* Seletor de País Padrão Brasil */}
-                      <div className="flex items-center gap-1.5 px-2 py-1.5 bg-white/5 rounded-lg text-xs font-bold text-zinc-300 select-none shrink-0 border border-white/10">
-                        <span className="text-base" role="img" aria-label="Bandeira do Brasil">🇧🇷</span>
-                        <span>+55</span>
+                    <div className="flex items-center gap-2 border-b-2 border-white/20 focus-within:border-purple-500 transition-colors pb-1">
+                      {/* Seletor Internacional com Bandeiras */}
+                      <div className="relative shrink-0 flex items-center">
+                        <select
+                          value={countryCode}
+                          onChange={(e) => {
+                            const newCode = e.target.value;
+                            setCountryCode(newCode);
+                            setAnswers(prev => ({ ...prev, celular: '' }));
+                          }}
+                          aria-label="Código do País (DDI)"
+                          className="appearance-none bg-white/5 hover:bg-white/10 border border-white/15 rounded-xl pl-2.5 pr-7 py-2 text-xs font-bold text-white focus:outline-none focus:border-purple-500 cursor-pointer transition-colors"
+                        >
+                          {COUNTRIES.map((c) => (
+                            <option key={c.code} value={c.code} className="bg-[#141414] text-white py-1.5">
+                              {c.flag} {c.name}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="w-3.5 h-3.5 text-zinc-400 absolute right-2 pointer-events-none" />
                       </div>
+
+                      {/* Se selecionar 'Outro País', exibe campo para o DDI customizado */}
+                      {countryCode === 'other' && (
+                        <input
+                          type="text"
+                          placeholder="+DDI"
+                          value={customDdi}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setCustomDdi(val.startsWith('+') ? val : `+${val}`);
+                          }}
+                          className="w-16 px-2 py-2 bg-white/5 border border-white/15 rounded-xl text-xs font-bold text-white text-center focus:outline-none focus:border-purple-500 shrink-0"
+                          title="Digite o DDI do seu país (ex: +351)"
+                        />
+                      )}
+
+                      {/* Campo do Número de Telefone */}
                       <input
                         id="lead-phone"
                         type="tel"
                         required
-                        placeholder="(11) 98765-4321"
+                        placeholder={
+                          COUNTRIES.find(c => c.code === countryCode)?.placeholder || "(XX) XXXXX-XXXX"
+                        }
                         value={answers.celular}
-                        onChange={(e) => setAnswers(prev => ({ ...prev, celular: formatPhone(e.target.value) }))}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          const formatted = countryCode === '+55' ? formatPhone(val) : val;
+                          setAnswers(prev => ({ ...prev, celular: formatted }));
+                        }}
                         className="w-full bg-transparent text-white placeholder:text-zinc-600 py-2 text-base focus:outline-none"
                       />
                     </div>
+
+                    {countryCode !== '+55' && (
+                      <p className="text-[11px] text-purple-400/90 mt-1.5 font-medium">
+                        🌍 Atendimento internacional disponível para alunos em qualquer país do mundo.
+                      </p>
+                    )}
                   </div>
 
                   {/* Instagram com normalização */}
