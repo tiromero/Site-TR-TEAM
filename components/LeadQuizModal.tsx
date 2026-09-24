@@ -16,7 +16,7 @@ import {
   UserCheck
 } from 'lucide-react';
 
-export const DEFAULT_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwVlXXY3ecWCIwk2NEPesHkYEGTHadgIuPpKu6xOTUTdggN0yiUy59iCUbT7REmkG7c/exec";
+export const DEFAULT_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmoznIqpCZNubMeMoH9XIRHWsp1Hbwv4e3HpM1wtqfX2xsqS6y8lBV9cj_9CQp68ZE/exec";
 
 export interface LeadQuizModalProps {
   isOpen: boolean;
