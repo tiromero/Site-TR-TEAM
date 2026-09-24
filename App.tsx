@@ -18,7 +18,9 @@ import {
   Star,
   CheckCircle2,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  ArrowRight,
+  Clock
 } from 'lucide-react';
 
 const ScrollProgressBar = () => {
@@ -328,38 +330,69 @@ const App: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Coluna Direita: Box de Ação Direta */}
+                  {/* Coluna Direita: Box de Ação Direta Redesenhada */}
                   <div className="lg:col-span-5 flex flex-col items-center justify-center text-center lg:border-l lg:border-white/5 lg:pl-10">
-                    <div className="w-full max-w-sm bg-gradient-to-b from-purple-950/20 to-zinc-900/40 p-6 md:p-8 rounded-3xl border border-purple-500/20 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]">
+                    <div className="w-full max-w-sm relative group rounded-[2rem] bg-gradient-to-b from-[#151224] via-[#0d0c15] to-[#08070d] p-7 md:p-8 border border-purple-500/30 shadow-[0_20px_50px_-15px_rgba(124,58,237,0.35)] overflow-hidden">
                       
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-[10px] font-black uppercase tracking-wider mb-6">
-                        <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                      {/* Efeitos de Luz de Fundo */}
+                      <div className="absolute -top-20 -right-20 w-44 h-44 bg-purple-600/25 blur-[50px] rounded-full pointer-events-none" />
+                      <div className="absolute -bottom-20 -left-20 w-44 h-44 bg-indigo-600/20 blur-[50px] rounded-full pointer-events-none" />
+
+                      {/* Badge Superior */}
+                      <div className="relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-[10px] font-black uppercase tracking-wider mb-5 shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse shadow-[0_0_8px_rgba(192,132,252,0.8)]" />
                         Atendimento Pessoal & Direto
                       </div>
 
-                      <h4 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight mb-3">
-                        Diagnóstico de Compatibilidade
+                      {/* Título */}
+                      <h4 className="relative text-2xl md:text-3xl font-black text-white uppercase tracking-tight mb-3">
+                        Diagnóstico de <span className="text-gradient">Compatibilidade</span>
                       </h4>
 
-                      <p className="text-zinc-400 text-xs md:text-sm leading-relaxed mb-8">
-                        Responda ao diagnóstico em 2 minutos. Avaliaremos sua individualidade e prioridades para certificar se o seu objetivo está perfeitamente alinhado à nossa metodologia antes de darmos início ao acompanhamento.
+                      {/* Mini Tags Informativas */}
+                      <div className="relative flex items-center justify-center gap-2 mb-5">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/5 text-[11px] font-semibold text-zinc-300">
+                          <Clock className="w-3 h-3 text-purple-400" /> 2 Minutos
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/5 text-[11px] font-semibold text-zinc-300">
+                          <ShieldCheck className="w-3 h-3 text-purple-400" /> Sem Custo
+                        </span>
+                      </div>
+
+                      <p className="relative text-zinc-400 text-xs md:text-sm leading-relaxed mb-7">
+                        Responda em 2 minutos. Avaliaremos sua individualidade para certificar se o seu objetivo está 100% alinhado à nossa metodologia antes de iniciarmos o acompanhamento.
                       </p>
 
-                      <button
-                        onClick={handleOpenQuiz}
-                        className="w-full py-4.5 px-4 bg-purple-600 hover:bg-purple-500 text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_15px_35px_-5px_rgba(124,58,237,0.5)] flex items-center justify-center gap-2.5 group active:scale-95 border-b-4 border-purple-800 cursor-pointer text-center leading-none"
-                      >
-                        <Sparkles className="w-4 h-4 shrink-0 text-purple-200 transition-transform group-hover:rotate-12" />
-                        <span>Entrar na Lista de Qualificação</span>
-                      </button>
+                      {/* Botão de Ação Redesenhado - Ultra Premium */}
+                      <div className="relative group/btn w-full">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 via-fuchsia-500 to-indigo-600 rounded-2xl blur-md opacity-70 group-hover/btn:opacity-100 transition duration-300 pointer-events-none" />
+                        
+                        <button
+                          onClick={handleOpenQuiz}
+                          className="relative w-full py-4 px-5 bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-700 hover:from-purple-500 hover:via-purple-600 hover:to-indigo-600 text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(124,58,237,0.4)] flex items-center justify-between gap-2.5 border border-purple-300/30 cursor-pointer active:scale-[0.98] overflow-hidden"
+                        >
+                          {/* Brilho hover animado */}
+                          <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform pointer-events-none" />
+                          
+                          <Sparkles className="w-4 h-4 shrink-0 text-purple-200 transition-transform group-hover/btn:rotate-45" />
+                          
+                          <div className="flex flex-col items-center flex-1">
+                            <span className="tracking-wider leading-none">Entrar na Lista de Qualificação</span>
+                            <span className="text-[10px] font-medium text-purple-200/80 normal-case tracking-normal mt-1">Análise individual pelo Tiromero</span>
+                          </div>
 
-                      <div className="mt-6 flex flex-col items-center gap-2">
+                          <ArrowRight className="w-4 h-4 shrink-0 text-purple-200 transition-transform group-hover/btn:translate-x-1" />
+                        </button>
+                      </div>
+
+                      {/* Informações de Confiança */}
+                      <div className="relative mt-6 pt-5 border-t border-white/5 flex flex-col items-center gap-1.5">
                         <div className="flex items-center gap-1.5 text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
                           <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
-                          <span>Diagnóstico Inicial Sem Custo</span>
+                          <span>Diagnóstico Inicial Sem Compromisso</span>
                         </div>
                         <span className="text-[10px] text-zinc-500 font-medium">
-                          Admissão condicional à compatibilidade de perfil e rotina
+                          Retorno individualizado diretamente via WhatsApp
                         </span>
                       </div>
                     </div>

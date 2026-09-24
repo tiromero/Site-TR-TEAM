@@ -769,7 +769,7 @@ export const LeadQuizModal: React.FC<LeadQuizModalProps> = ({
 
                 {/* Botão de aceleração pelo WhatsApp */}
                 <a
-                  href={`https://wa.me/5516993610513?text=${encodeURIComponent(`Olá! Acabei de me cadastrar na Lista de Qualificação da Consultoria TR TEAM no site (Nome: ${answers.nome}, Instagram: ${answers.instagram}, Objetivo: ${answers.objetivo}) e gostaria de verificar o andamento da minha solicitação.`)}`}
+                  href={`https://wa.me/5516991135472?text=${encodeURIComponent(`Olá! Acabei de me cadastrar na Lista de Qualificação da Consultoria TR TEAM no site (Nome: ${answers.nome}, Instagram: ${answers.instagram}, Objetivo: ${answers.objetivo}) e gostaria de verificar o andamento da minha solicitação.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-5 bg-purple-600 hover:bg-purple-500 text-white font-black text-sm uppercase tracking-widest rounded-2xl shadow-[0_10px_35px_rgba(124,58,237,0.5)] transition-all flex items-center justify-center gap-3 border border-purple-400/30 active:scale-95 cursor-pointer"
