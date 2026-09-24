@@ -5,10 +5,15 @@ import { GlowingEffect } from './ui/glowing-effect';
 
 interface PlanCardProps {
   plan: Plan;
+  onSelectPlan?: (planName: string) => void;
 }
 
-export const PlanCard: React.FC<PlanCardProps> = ({ plan }) => {
-  const handleWhatsAppRedirect = () => {
+export const PlanCard: React.FC<PlanCardProps> = ({ plan, onSelectPlan }) => {
+  const handleAction = () => {
+    if (onSelectPlan) {
+      onSelectPlan(plan.name);
+      return;
+    }
     const phoneNumber = "5516993610513";
     const message = encodeURIComponent(`Olá, gostaria de saber se há vaga disponivel para o ${plan.name}`);
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
@@ -89,7 +94,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({ plan }) => {
 
         <div className="mt-auto pt-8">
           <button 
-            onClick={handleWhatsAppRedirect}
+            onClick={handleAction}
             className={`w-full py-5 rounded-[1.5rem] font-black transition-all duration-300 uppercase tracking-widest text-xs active:scale-95 ${
             plan.isFeatured
               ? 'bg-purple-600 hover:bg-purple-500 text-white shadow-[0_10px_30px_-10px_rgba(124,58,237,0.6)]'

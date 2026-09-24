@@ -147,7 +147,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     name: "Elena Martins",
     image: "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&q=80&w=200&h=200",
-    text: "Minha postura melhorou 100% e as dores nas costas sumiram. Treinar com inteligência é outro nível.",
+    text: "Minha técnica e controle melhoraram 100% e os incômodos nas costas sumiram. Treinar com inteligência é outro nível.",
     tag: "Performance"
   }
 ];
@@ -155,27 +155,27 @@ export const TESTIMONIALS: Testimonial[] = [
 export const CONSULTANCY_STEPS: ConsultancyStep[] = [
   { 
     num: "01", 
-    title: "Formulário de Perfil", 
-    description: "Personalização completa",
-    items: ["Dados pessoais, rotina diária e histórico", "Objetivos específicos (ex: hipertrofia)"], 
-    extra: "Isso nos ajuda a criar um plano 100% personalizado!" 
+    title: "Qualificação & Lista de Espera", 
+    description: "Análise da sua individualidade",
+    items: ["Avaliação de rotina, histórico e objetivos", "Alinhamento com o método de trabalho"], 
+    extra: "Cada protocolo e análise de vídeo é conduzido pessoalmente pelo Tiromero." 
   },
   { 
     num: "02", 
-    title: "Confirmação da Compra", 
-    description: "Acesso imediato",
-    items: ["Pagamento via PIX, Cartão ou Boleto", "Validação rápida e acesso liberado"] 
+    title: "Validação & Aprovação", 
+    description: "Alinhamento 1 a 1",
+    items: ["Avaliação de compatibilidade de perfil", "Acesso aos detalhes do acompanhamento"] 
   },
   { 
     num: "03", 
     title: "Montagem do Protocolo", 
     description: "Estratégia sob medida",
-    items: ["Análise de formulário", "Treino periodizado e adaptável", "Estratégia nutricional e metas"] 
+    items: ["Análise biomecânica e motora", "Treino periodizado e individualizado", "Estratégia personalizada"] 
   },
   { 
     num: "04", 
-    title: "Entrega do Pacote", 
-    description: "Tudo pronto para começar",
-    items: ["Acesso ao App exclusivo", "Manual e Guias", "Suporte e feedbacks"] 
+    title: "Acompanhamento Contínuo", 
+    description: "Proximidade & Feedbacks",
+    items: ["Acesso ao App exclusivo", "Ajustes via feedbacks semanais e mensais", "Suporte direto no WhatsApp"] 
   }
 ];
